@@ -1,0 +1,13 @@
+1 - O formato de plotagem do trabalho é A1 - Paisagem, em escala 1:50;
+2 - As tabelas não podem ser em imagem;
+3 - A cerâmica da cozinha é 30x30 cm e começa atrás da porta entre a cozinha e a sala, assim como a cerâmica da área de serviço;
+4 - Para os alunos que irão fazer a planta entendendo o projeto, fazer o blanceamento de cargas no diagrama unifilar;
+5 - Criar os Layers Adequados;
+6 - Entregar a planta em: .DWG e .PDF;
+7 - Configurar as penas e entragar o arquivo ACAD;
+8 - Entregar o arquivo das tabelas vinculadas;
+9 - A entrega é individual em dia acertado;
+10 - Cada aluno terá a SCALE da alvenaria, mas as áreas não se alteram;
+
+
+ 
