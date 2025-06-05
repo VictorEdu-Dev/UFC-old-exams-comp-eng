@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<title>SIGAA - Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</title>
+		<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.ImageCacheScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/panelbar.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/panelbar.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg/ajax4jsf/javascript/scripts/form.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/simpleTogglePanel.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/simpleTogglePanel.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/available.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/script/controlUtils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/modalPanel.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/modalPanelBorders.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/modalPanel.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link rel="shortcut icon" href="/shared/img/brasao.ico" />
+
+ 		<script type="text/javascript" src="/shared/jsBundles/jawr_loader.js" ></script>
+ 		
+ 		<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+
+        		JAWR.loader.script('/bundles/js/turma_virtual_base.js');
+        </script>
+        
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/N1676241066/bundles/css/sigaa.css" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/N1913759804/ava/css/turma.css" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/N873690690/css/jquery-ui/css/jquery-ui-1.8.4.custom.css" />
+
+		
+	<script type="text/javascript">
+    	JAWR.loader.script('/javascript/jquery/jquery-1.5.min.js');
+	</script>
+
+	<script type="text/javascript">
+    	jQuery.noConflict();
+    	var J = jQuery;
+	</script>
+
+	<script type="text/javascript">
+    	JAWR.loader.script('/javascript/jquery/jquery.cookie.js');
+	</script>
+		
+		<script type="text/javascript" src="/sigaa/jsBundles/232493814/javascript/jquery-ui/js/jquery-ui-1.8.4.custom.min.js" ></script>
+
+		<script type="text/javascript" src="/sigaa/jsBundles/N656986837/javascript/jquery-layout.js" ></script>
+
+		
+
+	
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function(){
+		jQuery.cookie('sistema', null);
+	});
+
+	function setarCookie(){
+		jQuery.cookie('sistema', null);
+		jQuery.cookie('sistema', 'sigaa', { path: '/' });
+	}
+
+</script>
+
+		<style media="print">
+		
+			* {
+				color:#000000 !important;
+				position:relative !important;
+			}
+		
+			#barraEsquerda, #cabecalho, #barraDireita, #rodape {
+				display:none !important;
+			}
+			
+			#conteudo {
+				float:none;
+				position:relative !important;
+				display:block !important;
+				border:none !important;
+				margin:0px !important;
+				padding:0px !important;
+				left:0px !important;
+				top:0px !important;
+				bottom:0px !important;
+				right:0px !important;
+				width:auto !important;
+				height:auto !important;
+				overflow:visible !important;
+			}
+			
+			#naoImprimir {
+				display:none !important;
+			}
+		</style>
+		
+		<script type="text/javascript">
+
+		// Configura o layout com JQuery-UI.
+		var myLayout;
+		
+		jQuery(document).ready(function () {	
+			myLayout = jQuery('body').layout({
+				defaults: {
+					spacing_open: 5,
+					togglerLength_open: 0,
+					resizable: false,
+					slidable: false
+				}, north: {
+					size: 100
+				}, south: {
+					size: 25
+				}, west: {
+					size: 190
+				}, east: {
+					size: 225,
+					togglerLength_closed: -1,
+					spacing_closed: 30,
+					togglerTip_closed: "Abrir barra lateral",
+					fxName: "drop",
+					fxSpeed: "fast",
+					togglerClass: "botaoDireita"
+				}, center: {
+					minWidth: 200,
+					minHeight: 200
+				}
+			});
+
+			
+			myLayout.addToggleBtn( "#toggleDireita", "east" );
+			
+			
+		});
+		</script>
+		
+
+		
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/530109038/css/html5/bootstrap-form.css" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/1578515502/css/html5/bootstrap-acessibilidade.css" />
+
+		<link rel="stylesheet" href="/sigaa/css/html5/flexboxgrid.css" type="text/css" />
+		
+		
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/N1404962710/css/html5/html5-form.css" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/N1624543208/css/html5/html5-detalhes.css" />
+
+		
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/1160823600/css/html5/html5-botoes.css" />
+
+    </head>
+
+	<body>
+		<style>
+			div.botoes { background:none; width:100%; color:#000; padding:0px; font-weight:normal; font-size: 1em; }
+			fieldset ul.form li>label.required { padding-right: 0; background:none; }
+			span.required { padding-right: 0px; }
+		</style>
+	 
+		<div id="dialog">
+			<br/><br/>
+			<p>Por favor, aguarde enquanto a p&#225;gina &#233; gerada ...</p><br/><br/>
+			<img src="/sigaa/img/loading.gif" />
+		</div>
+		
+		<div id="mascara" style="width:2000px;height:2000px;"></div>
+		
+		<script>
+			function esconderLoading () {
+				jQuery("#dialog").css("display","none");
+				jQuery("#mascara").css("display","none");
+			}
+
+			function exibirLoading () {
+				jQuery("#dialog").css("display","block");
+				jQuery("#mascara").css("display","block");
+			}
+		</script>
+	
+
+		
+	
+		
+			
+		
+	
+		
+		
+		
+<form id="formMenu" name="formMenu" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formMenu" value="formMenu" />
+
+		
+			<div id="barraEsquerda" class="ui-layout-west">
+			
+				<table style="width:100%;border-bottom:1px solid #99BBE8;" cellspacing="0"><tr><td style="color:#15428B;background:url('/sigaa/ava/img/painel_bg.png');height:24px;text-align:center;font-weight:bold;font-size:8pt;">Menu Turma Virtual</td></tr></table>
+
+				<style>
+					.rich-panelbar{
+						background: #D9E7F8;
+					}
+				
+					.itemMenu {
+						vertical-align:middle;
+						border-bottom:1px solid #CCCCCC;
+						height:25px;
+						color:#000000;
+						font-weight:normal;
+						padding-top:5px;
+						text-indent:9px;
+						cursor:pointer;
+						background:#FFFFFF;
+					}
+					
+					.itemMenu:hover {
+						background:#CCCCCC;
+					}
+					
+					.dr-pnlbar-c {
+						padding: 0px !important;
+					}
+					
+					.itemMenuHeaderTurma, .itemMenuHeaderAlunos, .itemMenuHeaderDE, .itemMenuHeaderMateriais, .itemMenuHeaderAtividades, .itemMenuHeaderConfig, .itemMenuHeaderRelatorios, .itemMenuHeaderAjuda {
+						height:17px;
+						text-indent:15px;
+						padding-top:3px;
+						background:none;
+						border-top:1px solid #FFFFFF;
+						border-bottom:1px solid #BBCCDD;
+						background-repeat: no-repeat;
+						background-position:center left;
+					}
+					
+					.itemMenuHeaderTurma { background-image: url("/sigaa/ava/img/group.png"); }
+					.itemMenuHeaderAlunos { background-image: url("/sigaa/ava/img/vcard.png"); }
+					.itemMenuHeaderDE { background-image: url("/sigaa/ava/img/book_open.png"); }
+					.itemMenuHeaderMateriais { background-image: url("/sigaa/ava/img/materiais.png"); }
+					.itemMenuHeaderAtividades { background-image: url("/sigaa/ava/img/report_edit.png"); }
+					.itemMenuHeaderConfig { background-image: url("/sigaa/ava/img/folder_wrench.png"); }
+					.itemMenuHeaderRelatorios { background-image: url("/sigaa/ava/img/page_white_put.png"); }
+					.itemMenuHeaderAjuda { background-image: url("/sigaa/ava/img/small_ajuda.gif"); }
+				</style>
+				
+				<div class="rich-panelbar rich-panelbar-b " id="formMenu:j_id_jsp_1287906063_3" style="padding: 0px; height: 100%; width: 100%; "><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1287906063_4"><div class="rich-panelbar-header  itemMenuHeaderTurma" style=";">Turma</div><div class="rich-panelbar-header-act  itemMenuHeaderTurma  " style=";;;;display: none;">Turma</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;">
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var ps = pvp.split(',');for (var i = 0,ii = 0;i < ps.length;i++,ii++) {var p = document.createElement("input");p.type = "hidden";p.name = ps[i];p.value = ps[i + 1];f.appendChild(p);adp[ii] = p;i += 1;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_5,formMenu:j_id_jsp_1287906063_5','');}return false">
+        					<div class="itemMenu">Principal</div>
+        				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_6,formMenu:j_id_jsp_1287906063_6','');}return false">
+				        		<div class="itemMenu">Gerenciar Perfil</div>
+				        	</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_7,formMenu:j_id_jsp_1287906063_7','');}return false">
+									<div class="itemMenu">Plano de Curso</div>
+								</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_10,formMenu:j_id_jsp_1287906063_10','');}return false">
+				        	<div class="itemMenu">Participantes</div>
+				        </a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_11,formMenu:j_id_jsp_1287906063_11','');}return false">
+				        	<div class="itemMenu">Visualizar Programa</div>
+				        </a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_13,formMenu:j_id_jsp_1287906063_13','');}return false">
+							<div class="itemMenu">F&#243;rum</div>
+						</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_14,formMenu:j_id_jsp_1287906063_14','');}return false">
+				        	<div class="itemMenu">Not&#237;cias</div>
+				        </a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1287906063_17"><div class="rich-panelbar-header  itemMenuHeaderAlunos" style=";">Alunos</div><div class="rich-panelbar-header-act  itemMenuHeaderAlunos  " style=";;;;display: none;">Alunos</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_18,formMenu:j_id_jsp_1287906063_18','');}return false">
+							<div class="itemMenu">Frequ&#234;ncia</div>
+						</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_19,formMenu:j_id_jsp_1287906063_19','');}return false">
+							<div class="itemMenu">Ver Notas</div>
+						</a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1287906063_33"><div class="rich-panelbar-header  itemMenuHeaderMateriais" style=";">Materiais</div><div class="rich-panelbar-header-act  itemMenuHeaderMateriais  " style=";;;;display: none;">Materiais</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_34,formMenu:j_id_jsp_1287906063_34','');}return false">
+							<div class="itemMenu">Conte&#250;do</div>
+						</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_37,formMenu:j_id_jsp_1287906063_37','');}return false">
+				        	<div class="itemMenu">Refer&#234;ncias</div>
+				        </a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1287906063_38"><div class="rich-panelbar-header  itemMenuHeaderAtividades" style=";">Atividades</div><div class="rich-panelbar-header-act  itemMenuHeaderAtividades  " style=";;;;display: none;">Atividades</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_39,formMenu:j_id_jsp_1287906063_39','');}return false">
+								<div class="itemMenu">Avalia&#231;&#245;es</div>
+							</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_40,formMenu:j_id_jsp_1287906063_40','');}return false">
+								<div class="itemMenu">Enquetes</div>
+							</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_41,formMenu:j_id_jsp_1287906063_41','');}return false">
+								<div class="itemMenu">Tarefas</div>
+							</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_42,formMenu:j_id_jsp_1287906063_42','');}return false">
+								<div class="itemMenu">Grupos de Tarefa</div>
+							</a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1287906063_58"><div class="rich-panelbar-header  itemMenuHeaderAjuda" style=";">Ajuda</div><div class="rich-panelbar-header-act  itemMenuHeaderAjuda  " style=";;;;display: none;">Ajuda</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formMenu'],'formMenu:j_id_jsp_1287906063_60,formMenu:j_id_jsp_1287906063_60','');}return false">
+								<div class="itemMenu">Tutoriais da Turma Virtual</div>
+							</a></td></tr></tbody></table></div></div><input autocomplete="off" id="formMenu:j_id_jsp_1287906063_3_panelBarInput" name="formMenu:j_id_jsp_1287906063_3" type="hidden" value="formMenu:j_id_jsp_1287906063_4" /><script type="text/javascript">new Richfaces.PanelBar('formMenu:j_id_jsp_1287906063_3',{'mousemove':'','items':[{'onleave':'','id':'formMenu:j_id_jsp_1287906063_4','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1287906063_17','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1287906063_33','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1287906063_38','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1287906063_58','onenter':''} ] ,'ajax':false,'mouseout':'','onclick':'','mouseover':'','onitemchange':'','onitemchanged':''} );</script></div>
+				 
+			</div>
+			
+			
+		
+		
+		<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id7" />
+</form>
+		
+		
+			<style>
+	.headerBloco{
+		color:#15428B;
+		background:url('/sigaa/ava/img/painel_bg.png');
+		height:18px;
+		text-align:left;
+		font-weight:bold;
+		font-size:8pt;
+		padding:0px;
+		padding-top:3px;
+		padding-left:10px;
+		border-bottom:1px solid #99BBE8;
+		-moz-border-radius: 4px;
+	}
+	
+	.blocoDireita{
+		margin:5px;
+		margin-bottom:10px;
+		-moz-border-radius: 4px;
+	}
+</style>
+
+
+
+
+<div id="barraDireita" class="ui-layout-east">
+	<table style="width:100%;border-bottom:1px solid #99BBE8;" cellspacing="0"><tr><td style="color:#15428B;background:url('/sigaa/ava/img/painel_bg.png');height:24px;text-align:right;font-weight:bold;font-size:8pt;padding-right:5px;" id="toggleDireita"><img src="/sigaa/ava/img/painel_seta_dir.png" /></td></tr></table>
+	
+	<div class="rich-stglpanel blocoDireita" id="j_id_jsp_1287906063_62"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1287906063_62", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1287906063_62:_form" name="j_id_jsp_1287906063_62:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1287906063_62_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1287906063_62');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_62_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_62_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Not&iacute;cias&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1287906063_62_input" name="j_id_jsp_1287906063_62" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id7" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1287906063_62_body">
+        
+			
+		
+		
+			
+		
+		
+        			
+		
+			<center>N&#227;o h&#225; not&#237;cias cadastradas</center>
+		
+    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1287906063_67"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1287906063_67", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1287906063_67:_form" name="j_id_jsp_1287906063_67:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1287906063_67_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1287906063_67');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_67_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_67_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Enquete&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1287906063_67_input" name="j_id_jsp_1287906063_67" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id7" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1287906063_67_body">
+   		
+			
+		
+		
+			
+		
+		
+        
+	
+		
+			<center>Nenhuma enquete encontrada</center>
+		
+    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1287906063_75"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1287906063_75", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1287906063_75:_form" name="j_id_jsp_1287906063_75:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1287906063_75_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1287906063_75');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_75_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_75_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Atividades&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1287906063_75_input" name="j_id_jsp_1287906063_75" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id7" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1287906063_75_body">
+    	
+			
+		
+		
+			
+		
+		
+        
+			<ul class="menu-direita">
+				
+					<li>
+						<span class="data">22/03</span>
+						<span class="descricao">Novo conte&#250;do adicionado</span>
+					</li>
+				
+					<li>
+						<span class="data">22/03</span>
+						<span class="descricao">Adicionado arquivo #3 - CEI - Resist&#234;ncia Equivalente - Lista</span>
+					</li>
+				
+					<li>
+						<span class="data">22/03</span>
+						<span class="descricao">Adicionado arquivo #3 - CEI - Resist&#234;ncia Equivalente - Aula</span>
+					</li>
+				
+					<li>
+						<span class="data">22/03</span>
+						<span class="descricao">Novo t&#243;pico de aula: #3 - CEI - Resist&#234;ncia Equivalente</span>
+					</li>
+				
+					<li>
+						<span class="data">22/03</span>
+						<span class="descricao">Novo conte&#250;do adicionado</span>
+					</li>
+				
+			</ul>
+		
+		
+    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1287906063_78"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1287906063_78", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1287906063_78:_form" name="j_id_jsp_1287906063_78:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1287906063_78_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1287906063_78');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_78_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1287906063_78_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Avalia&ccedil;&otilde;es&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1287906063_78_input" name="j_id_jsp_1287906063_78" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id7" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1287906063_78_body">
+    	
+			
+		
+		
+			
+		
+		
+		
+		
+			<center>
+				<em>Nenhuma avalia&#231;&#227;o cadastrada</em>
+			</center>
+		
+		
+    </div></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+		
+		
+		
+		
+		<div id="cabecalho" class="ui-layout-north">
+			<div id="info-sistema">
+				<h1> <span>UFC - SIGAA -</span></h1>
+				<h3>Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas </h3>
+			</div>
+			
+			
+			
+				<div id="tempoSessao"></div>
+				
+				<script language="javascript">
+					Relogio.init(90);
+				</script>
+			
+				<span id="sair-sistema">
+					<a href="/sigaa/logar.do?dispatch=logOff">SAIR</a>
+				</span>
+			
+			
+			
+			
+	
+			<div id="painel-usuario" >
+				
+					<div id="menu-usuario">
+						<ul>
+							<li class="modulos">
+							
+								<span id="modulos">
+									<a href="#" id="show-modulos"> M&#243;dulos </a>
+								</span>
+							
+							</li>
+							<li class="caixa-postal off"><a title="Funcionalidade Temporariamente Indispon&#237;vel" href="javascript:void(0)">Caixa Postal</a></li>
+							<li class="chamado">
+								
+									
+									
+										
+											<a href="#" onclick="setarCookie(); window.open('/sigaa/abrirChamado.jsf?tipo=3&sistema=2&idUsuario=1', 'chamado', 'scrollbars=1,width=700,height=400')" id="abrirChamado">Abrir Chamado</a>
+										
+										
+									
+								
+							</li>
+							
+								<li class="menus">
+									
+									
+									
+										<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+									
+									
+								</li>
+							
+							
+							
+								<li class="dados-pessoais">
+									<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar E-mail/Senha</a>
+								</li>
+							
+							<li class="ajuda">
+								
+								<a href="/sigaa/manuais/index.jsp" id="show-ajuda" > Ajuda </a>
+							</li>
+						</ul>
+					</div>
+					
+					<div id="info-usuario">
+						
+						<!-- [RM #8268] Alterar a camada de apresentacao dos elementos que exibem os dados do usuario logado -->
+						<div class="nome_vinculo_deslogar_unidade_periodo">
+							<div class="nome_vinculo_deslogar_periodo">
+
+								<!-- O codigo abaixo eh responsavel por exibir o nome do usuario
+									e as opcoes de "Alterar Vinculo" e "Deslogar"(opcao Logar Como)  -->
+								
+									<div class="nome_vinculo_deslogar">
+										<div class="nome_usuario">
+											<p> KLAYVER XIMENES CARMO</p>
+										</div>
+										
+										<div class="vinculo_deslogar">
+											
+											
+											
+										</div>
+									</div>
+								
+								
+								<!-- Exibe a informacao do periodo letivo -->
+								<div class="periodo">
+									
+										<p> Semestre atual: <span class="negrito">2022.1</span></p>
+									
+								</div>
+							</div>
+							
+							<!-- Exibe as informacoes da unidade do usuario -->		
+							<div class="info_unidade">
+								<p>
+									
+										
+										
+											CAMPUS DA UFC EM SOBRAL/DIRETORIA
+											
+												(11.00.01.28)
+											 
+												
+											
+										
+									
+									
+								</p>
+							</div>
+						</div>
+			
+					</div>
+				
+				<div style="clear:both;"></div>
+			</div>
+			
+			
+			
+				
+			
+			
+			<div id="nomeTurma" style="padding-top:7px;margin-left:10px;font-weight:bold;">
+				<a href="/sigaa/ava/index.jsf">
+					SBL0061 - CIRCUITOS EL&#201;TRICOS I
+					(2022.1 - T01)
+				</a>
+			</div>
+			
+			<div style="position:absolute;right:10px;bottom:2px;width:130px;text-align:right;">
+				<a id="showlink" name="showlink" href="#">
+					<span style="position:absolute;left:0px;top:2px;">Trocar de turma</span> 
+          			<img id="hidelink2" src="/sigaa/img/mudar.png" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#showlink','onclick','#panelTurmas','show')</script></a><div id="panelTurmas" style="display: none;"><input autocomplete="off" id="panelTurmasOpenedState" name="panelTurmasOpenedState" type="hidden" /><div class="rich-modalpanel " id="panelTurmasContainer" style="position: absolute; display: none; z-index: 100; background-color: inherit;"><div class="rich-mpnl-mask-div-opaque rich-mpnl-mask-div" id="panelTurmasDiv" style="z-index: -1;"><button class="rich-mpnl-button" id="panelTurmasFirstHref"></button></div><div class="rich-mpnl-panel"><div class="rich-mp-container" id="panelTurmasCDiv" style="position: absolute; left: 0px; top: 0px; z-index: 9;"><div class="rich-mpnl-shadow" id="panelTurmasShadowDiv"></div><div class="rich-mpnl-ovf-hd rich-mpnl-trim rich-mpnl-content" id="panelTurmasContentDiv"><div class="rich-mpnl-text rich-mpnl-controls "><img id="hidelink" src="/sigaa/img/biblioteca/fechar.jpg" style="cursor:pointer" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#hidelink','onclick','#panelTurmas','hide')</script></div><table border="0" cellpadding="0" cellspacing="0" class="rich-mp-content-table" id="panelTurmasContentTable" style="height: 100%; width: 100%;"><tr style="height: 1%;"><td class="rich-mpnl-header-cell"><div class="rich-mpnl-text rich-mpnl-header " id="panelTurmasHeader" style="white-space: nowrap;">Escolha uma Turma</div></td></tr><tr style="height: 99%"><td class="rich-mpnl-body" valign="top">
+			    	
+			            
+			        
+			        
+			            
+			        
+			        
+					<div style="overflow:auto;width:450px;height:300px;">
+						<form id="formTurma" action="/sigaa/ava/entrarTurma.jsf">
+							
+								
+									<input class="radioTurma" id="r0" type="radio" name="idTurma" value="447871" /> <label for="r0">SBL0071 - ENGENHARIA ECON&#212;MICA - Turma: 01 (2022.1)</label><br/><br/>
+								
+									<input class="radioTurma" id="r1" type="radio" name="idTurma" value="447700" /> <label for="r1">ECO0056 - TECNOLOGIAS WEB - Turma: 01 (2022.1)</label><br/><br/>
+								
+									<input class="radioTurma" id="r2" type="radio" name="idTurma" value="447157" /> <label for="r2">SBL0061 - CIRCUITOS EL&#201;TRICOS I - Turma: 01 (2022.1) - ABERTA</label><br/><br/>
+								
+									<input class="radioTurma" id="r3" type="radio" name="idTurma" value="447123" /> <label for="r3">SBL0087 - QU&#205;MICA GERAL - Turma: 02 (2022.1) - ABERTA</label><br/><br/>
+								
+							
+						</form>
+					</div>
+					
+					<script>
+			        	jQuery(".radioTurma").click(function(){
+				        	document.getElementById("showlink").focus();
+					    });
+
+						jQuery(".radioTurma").change(function(){
+				        	document.getElementById('formTurma').submit();
+					    });
+			        </script>
+				</td></tr></table></div><div class="rich-mpnl-resizer" id="panelTurmasResizerN" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerE" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerS" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerW" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerNWU" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerNEU" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerNEL" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerSEU" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerSEL" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerSWL" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerSWU" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelTurmasResizerNWL" style="height: 40px; width: 4px;"></div></div></div><div class="rich-mpnl-mask-div rich-mpnl-mask-div-transparent" id="panelTurmasCursorDiv" style="z-index: -200;"><button class="rich-mpnl-button" id="panelTurmasLastHref"></button></div><script type="text/javascript">new ModalPanel('panelTurmas',
+				{
+					width: 470,
+					height: 340,
+
+					minWidth: -1,
+					minHeight: -1,
+
+					resizeable: true,
+					moveable: true,
+
+					left: "auto",
+					top: "auto",
+
+					zindex: 100,onresize: '',onmove: '',onshow: '',onhide: '',onbeforeshow: '',onbeforehide: '',
+					domElementAttachment: "",				
+					keepVisualState: false,
+					showWhenRendered: false,
+					selectBehavior: "disable",
+
+					autosized: false,
+					overlapEmbedObjects: false});</script></div><script type="text/javascript"></script></div>
+      			
+				
+				
+				
+				
+				
+				<script>
+	JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+</script>
+			    
+<script type="text/javascript" src="/sigaa/ava/javascript/ext-2.0.a.1/ext-base.js"></script>
+<script type="text/javascript" src="/sigaa/ava/javascript/ext-2.0.a.1/ext-all.js"></script>
+
+<script type="text/javascript" src="/sigaa/ava/javascript/turma.jsp"></script>
+
+<style>
+	#panelPerfilContentDiv {
+		text-align:left;
+	}
+	
+	#panelPerfilContentDiv h1 {
+		font-size:9pt;
+		font-weight:bold;
+		padding:3px;
+		background:#DFE8F6;
+		margin-top:20px;
+		margin-bottom:10px;
+	}
+</style>
+
+
+<input id="bVisualizarPerfil" type="submit" name="bVisualizarPerfil" value="" style="display:none;" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#bVisualizarPerfil','onclick','#panelPerfil','show')</script><div id="panelPerfil" style="display: none;"><input autocomplete="off" id="panelPerfilOpenedState" name="panelPerfilOpenedState" type="hidden" /><div class="rich-modalpanel panelPerfil" id="panelPerfilContainer" style="position: absolute; display: none; z-index: 100; background-color: inherit;"><div class="rich-mpnl-mask-div-opaque rich-mpnl-mask-div" id="panelPerfilDiv" style="z-index: -1;"><button class="rich-mpnl-button" id="panelPerfilFirstHref"></button></div><div class="rich-mpnl-panel"><div class="rich-mp-container" id="panelPerfilCDiv" style="position: absolute; left: 0px; top: 0px; z-index: 9;"><div class="rich-mpnl-shadow" id="panelPerfilShadowDiv"></div><div class="rich-mpnl-ovf-hd rich-mpnl-trim rich-mpnl-content" id="panelPerfilContentDiv"><div class="rich-mpnl-text rich-mpnl-controls "><img id="hidelink1" src="/sigaa/img/biblioteca/fechar.jpg" style="cursor:pointer" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#hidelink1','onclick','#panelPerfil','hide')</script></div><table border="0" cellpadding="0" cellspacing="0" class="rich-mp-content-table" id="panelPerfilContentTable" style="height: 100%; width: 100%;"><tr style="height: 1%;"><td class="rich-mpnl-header-cell"><div class="rich-mpnl-text rich-mpnl-header " id="panelPerfilHeader" style="white-space: nowrap;">Perfil do Discente</div></td></tr><tr style="height: 99%"><td class="rich-mpnl-body" valign="top"><span id="basePanelPerfil">
+		
+		
+		
+			O usu&#225;rio selecionado n&#227;o &#233; um discente.
+		
+		
+		
+	</span></td></tr></table></div><div class="rich-mpnl-resizer" id="panelPerfilResizerN" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerE" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerS" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerW" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerNWU" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerNEU" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerNEL" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerSEU" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerSEL" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerSWL" style="height: 40px; width: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerSWU" style="width: 40px; height: 4px;"></div><div class="rich-mpnl-resizer" id="panelPerfilResizerNWL" style="height: 40px; width: 4px;"></div></div></div><div class="rich-mpnl-mask-div rich-mpnl-mask-div-transparent" id="panelPerfilCursorDiv" style="z-index: -200;"><button class="rich-mpnl-button" id="panelPerfilLastHref"></button></div><script type="text/javascript">new ModalPanel('panelPerfil',
+				{
+					width: 530,
+					height: 400,
+
+					minWidth: -1,
+					minHeight: -1,
+
+					resizeable: true,
+					moveable: true,
+
+					left: "auto",
+					top: "auto",
+
+					zindex: 100,onresize: '',onmove: '',onshow: '',onhide: '',onbeforeshow: '',onbeforehide: '',
+					domElementAttachment: "",				
+					keepVisualState: false,
+					showWhenRendered: false,
+					selectBehavior: "disable",
+
+					autosized: false,
+					overlapEmbedObjects: false});</script></div><script type="text/javascript"></script></div>
+
+
+
+				
+			</div>
+		</div>
+		
+		<div id="conteudo" class="ui-layout-center">
+		
+			
+			
+			
+
+
+
+
+		
+			
+				
+			
+		
+			
+	
+<form id="formAva" name="formAva" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formAva" value="formAva" />
+
+
+	<script>
+
+		var select = null;
+		var slider = null;
+		var timeout = null;
+		var valorInicial = 0;
+
+		function configurarSlider() {
+			slider = J("#sliderPaginacao").slider({
+				min: 1,
+				max: 6,
+				range: "min",
+				value: select[0].selectedIndex + 1,
+				animate: true,
+				start : function (event, ui) {
+					valorInicial = ui.value;
+				},
+				slide: function(event, ui) {
+					select[0].selectedIndex = ui.value - 1;
+					J("#tooltip1").html(J('#formAva\\:escolherTopico :selected').text());
+				},
+				stop: function(event, ui) {
+					carregarTopico();
+				}
+			});
+
+			J("#sliderPaginacao").parent().wTooltip({
+				content: J('#formAva\\:escolherTopico :selected').text(),
+				id: "tooltip1"
+			});
+		}
+
+		function exibeTopicoAnterior (){
+			document.getElementById("formAva:escolherTopico").selectedIndex --;
+			escolheTopico ();
+		}
+
+		function exibeProximoTopico (){
+			document.getElementById("formAva:escolherTopico").selectedIndex ++;
+			escolheTopico ();
+		}
+
+		function escolheTopico (){
+			var select = document.getElementById("formAva:escolherTopico");
+			
+			document.getElementById('formAva:idTopicoSelecionado').value = select.value;
+			document.getElementById('formAva:bExibirTopico').click();
+		}
+
+		function acaoTopico (select){
+			document.getElementById("formAva:idTopicoAcao").value = select.value;
+			J('#formAva\\:realizarAcaoTopico').trigger("click");
+		}
+
+		function cancelarEsperaSlider () {
+			configurarBotoes(false);
+			slider.slider( "option", "value", valorInicial );
+		}
+
+		function completarCarregamentoTopico () {
+			slider.slider( "option", "value", select[0].selectedIndex + 1 );
+			J("#tooltip1").html(J('#formAva\\:escolherTopico :selected').text());
+			
+			if (timeout != null)
+				clearTimeout(timeout);
+			
+			configurarBotoes(false);
+		}
+
+		function carregarTopico () {
+			escolheTopico();
+			configurarBotoes(true);
+			timeout = setTimeout('cancelarEsperaSlider()', 2000);
+		}
+
+		function configurarBotoes(estado){
+			slider.slider( "option", "disabled", estado );
+		}
+	</script>
+
+	<input id="formAva:idTopicoSelecionado" type="hidden" name="formAva:idTopicoSelecionado" value="0" /><input id="formAva:bExibirTopico" name="formAva:bExibirTopico" onclick="A4J.AJAX.Submit('formAva',event,{'oncomplete':function(request,event,data){completarCarregamentoTopico();},'similarityGroupingId':'formAva:bExibirTopico','parameters':{'formAva:bExibirTopico':'formAva:bExibirTopico'} ,'containerId':'formAva:j_id_jsp_1287906063_102'} );return false;" style="display:none;" type="button" />
+	
+
+	
+	
+		<style>
+			.topico-aula {
+				position:relative;
+			}
+		
+			.topico-aula .titulo {
+				font-weight:bold;
+			}
+			
+			.topico-aula .acao-topico {
+				text-align:right;
+				margin:5px 0 5px 0;
+			}
+			
+			.topico-aula .foto-docente {
+				 float:left;
+				 width:45px;
+				 margin-top:5px;
+				 overflow:hidden;
+			}
+			
+			.topico-aula .conteudo {
+				margin-left:55px;
+			}
+			
+			.topico-aula .conteudo .item {
+				margin-top:10px;
+			}
+			
+			.topico-aula .conteudo .item .descricao-item {
+				margin-left:40px;
+			}
+		</style>
+	
+		
+			<span id="formAva:j_id_jsp_1287906063_105:0:j_id_jsp_1287906063_106">
+	
+	<div class="topico-aula" style="margin-left: 10px; ">
+	
+		
+	    
+		
+		<div class="titulo">
+			Aulas Te&oacute;ricas - Prof. Elmano (16/03/2022 - 15/07/2022)
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div>
+			
+		
+		
+		
+		
+		
+
+		
+		<div class="conteudo">
+		
+			<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+</body>
+</html>
+		
+			
+			
+		
+			
+			
+			
+			
+			
+		</div> 
+	
+		<div style="clear:both"></div>
+	</div> 
+</span><span id="formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_106">
+	
+	<div class="topico-aula" style="margin-left: 30px; ">
+	
+		
+	    
+		
+		<div class="titulo">
+			Apresenta&ccedil;&atilde;o da Disciplina (17/03/2022 - 17/03/2022)
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div>
+			
+		
+		
+		
+		
+		
+
+		
+		<div class="conteudo">
+		
+			<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+</body>
+</html><span id="formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_164">
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:0:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,id,2368399,key,8d4860197b68e42075c9c8152a251d69','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />Cronograma da Disciplina</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:1:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:1:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,id,2368564,key,23cd81ecaa5c905b61b476e567f37997','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />Apresenta&ccedil;&atilde;o da Disciplina</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				</span>
+		
+			
+			
+		
+			
+			
+			
+			
+			
+		</div> 
+	
+		<div style="clear:both"></div>
+	</div> 
+</span><span id="formAva:j_id_jsp_1287906063_105:2:j_id_jsp_1287906063_106">
+	
+	<div class="topico-aula" style="margin-left: 30px; ">
+	
+		
+	    
+		
+		<div class="titulo">
+			Circuitos Puramente Resistivos (17/03/2022 - 19/04/2022)
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div>
+			
+		
+		
+		
+		
+		
+
+		
+		<div class="conteudo">
+		
+			<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+</body>
+</html>
+		
+			
+			
+		
+			
+			
+			
+			
+			
+		</div> 
+	
+		<div style="clear:both"></div>
+	</div> 
+</span><span id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_106">
+	
+	<div class="topico-aula" style="margin-left: 50px; ">
+	
+		
+	    
+		
+		<div class="titulo">
+			#1 - CEI - Defini&ccedil;&otilde;es B&aacute;sicas (17/03/2022 - 17/03/2022)
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div>
+			
+		
+		
+		
+		
+		
+
+		
+		<div class="conteudo">
+		
+			<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+</body>
+</html><span id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_164">
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:0:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,id,2373598,key,e2090474dd8fb4c9f8149c852f5e74fd','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />#1 - CEI - Defini&ccedil;&otilde;es B&aacute;sicas - Aula</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:1:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,id,2373599,key,8c7e764d1c22423f0045c7158c5e1bf8','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />#1 - CEI - Defini&ccedil;&otilde;es B&aacute;sicas - Lista</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:2:j_id_jsp_1287906063_227"><a id="formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo,formAva:j_id_jsp_1287906063_105:3:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo,id,732552390','');}return false"><img src="/sigaa/img/porta_arquivos/icones/conteudo.png" /> #1 - CEI - Defini&ccedil;&otilde;es B&aacute;sicas - V&iacute;deo</a></span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				</span>
+		
+			
+			
+		
+			
+			
+			
+			
+			
+		</div> 
+	
+		<div style="clear:both"></div>
+	</div> 
+</span><span id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_106">
+	
+	<div class="topico-aula" style="margin-left: 50px; ">
+	
+		
+	    
+		
+		<div class="titulo">
+			#2 - CEI - Leis de Kirchhoff (22/03/2022 - 22/03/2022)
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div>
+			
+		
+		
+		
+		
+		
+
+		
+		<div class="conteudo">
+		
+			<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+</body>
+</html><span id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_164">
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:0:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,id,2384467,key,405a98858138b1b66abdbd0434b298e1','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />#2 - CEI - Leis de Kirchhoff - Aula</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:1:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,id,2384465,key,a34b4947303a5a4cf0ec64f208c1fae2','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />#2 - CEI - Leis Kirchhoff - Lista</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:2:j_id_jsp_1287906063_227"><a id="formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo,formAva:j_id_jsp_1287906063_105:4:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo,id,732898780','');}return false"><img src="/sigaa/img/porta_arquivos/icones/conteudo.png" /> #2 - CEI - Leis de Kirchhoff - V&iacute;deo</a></span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				</span>
+		
+			
+			
+		
+			
+			
+			
+			
+			
+		</div> 
+	
+		<div style="clear:both"></div>
+	</div> 
+</span><span id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_106">
+	
+	<div class="topico-aula" style="margin-left: 50px; ">
+	
+		
+	    
+		
+		<div class="titulo">
+			#3 - CEI - Resist&ecirc;ncia Equivalente (24/03/2022 - 24/03/2022)
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div>
+			
+		
+		
+		
+		
+		
+
+		
+		<div class="conteudo">
+		
+			<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+</body>
+</html><span id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_164">
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:0:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:0:idInserirMaterialArquivo,id,2384468,key,5acaec9e6d05fa8354779c97e59a8876','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />#3 - CEI - Resist&ecirc;ncia Equivalente - Aula</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:1:j_id_jsp_1287906063_166"><a id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:1:idInserirMaterialArquivo,id,2384469,key,ffa667fabfd37f0adc2b6e36ad0ee79e','_blank');}return false"><img src="/sigaa/img/porta_arquivos/icones/pdf.png" />#3 - CEI - Resist&ecirc;ncia Equivalente - Lista</a> 
+							
+							
+								
+							
+							
+							
+							<div class="descricao-item">
+								 
+							</div>
+								 
+						</span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				
+					<div class="item">
+					
+						
+						<span id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:2:j_id_jsp_1287906063_227"><a id="formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo,formAva:j_id_jsp_1287906063_105:5:j_id_jsp_1287906063_165:2:idMostrarMaterialConteudo,id,732898781','');}return false"><img src="/sigaa/img/porta_arquivos/icones/conteudo.png" /> #3 - CEI - Resist&ecirc;ncia Equivalente - V&iacute;deo</a></span>
+				
+						
+						
+							
+						
+						
+							
+						
+						
+					</div>
+				</span>
+		
+			
+			
+		
+			
+			
+			
+			
+			
+		</div> 
+	
+		<div style="clear:both"></div>
+	</div> 
+</span>
+		
+
+
+
+
+
+
+
+
+
+
+<div class="botoes" class="naoImprimir">
+	<div class="form-actions">
+		<a id="formAva:imprimirTopicos" href="#" onclick="var a=function(){window.print();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.forms['formAva'],'formAva:imprimirTopicos,formAva:imprimirTopicos','');}return false};return (a()==false) ? false : b();"><img src="/sigaa/ava/img/printer.png" />
+			 Imprimir
+		</a>
+	</div>
+</div>
+	<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id7" />
+</form>
+		</div>
+		
+		<div id="rodape" class="ui-layout-south"></div>
+		</div>
+	
+	
+	<script>
+		J(document).ready(function (){
+			esconderLoading();
+		});
+	</script>
+	
+	<div id="mensagem">
+		<div class="x-window-header"></div>
+		<div class="x-window-body"></div>
+	</div>
+
+	
+	<div vw class="enabled">
+	    <div vw-access-button class="active"></div>
+	    <div vw-plugin-wrapper>
+	      <div class="vw-plugin-top-wrapper"></div>
+	    </div>
+	</div>
+	<script src="https://vlibras.gov.br/app/vlibras-plugin.js" charset="UTF-8"></script>
+	<script>
+		new window.VLibras.Widget('https://vlibras.gov.br/app');
+	</script>
+<!-- MYFACES JAVASCRIPT -->
+
+</body>
+</html>
