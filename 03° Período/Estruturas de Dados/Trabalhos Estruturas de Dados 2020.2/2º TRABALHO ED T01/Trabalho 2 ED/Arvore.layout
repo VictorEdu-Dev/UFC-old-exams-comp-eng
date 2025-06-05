@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="default" />
+	<File name="lista.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="793" topLine="37" />
+		</Cursor>
+	</File>
+	<File name="pilha.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="arvb.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3689" topLine="202" />
+		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="60" topLine="28" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>
+[Editors]
+Order=
+Focused=-1
+[Editor_0]
+CursorCol=28
+CursorRow=15
+TopLine=1
+LeftChar=1
+[Editor_5]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_6]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_4]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_3]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1
+[Editor_1]
+CursorCol=1
+CursorRow=1
+TopLine=1
+LeftChar=1

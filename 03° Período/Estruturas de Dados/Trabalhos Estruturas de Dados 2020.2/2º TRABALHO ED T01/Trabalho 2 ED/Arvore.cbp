@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Arvore" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="default">
+				<Option output="Arvore" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Unit filename="arvb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="arvb.h">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lista.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lista.h">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pilha.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pilha.h">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

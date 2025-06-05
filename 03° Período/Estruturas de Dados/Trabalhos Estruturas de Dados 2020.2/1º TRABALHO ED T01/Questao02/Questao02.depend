@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1613322953 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao02\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+
+1613320855 c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao02\lista.h
+
+1613320461 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao02\main.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+	"pilha.h"
+
+1613320842 c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao02\pilha.h
+
+1613322168 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao02\pilha.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+	"pilha.h"
+
+1613322953 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao02\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+
+1613320855 e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao02\lista.h
+
+1613323412 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao02\main.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+	"pilha.h"
+
+1613320842 e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao02\pilha.h
+
+1613322168 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao02\pilha.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+	"pilha.h"
+

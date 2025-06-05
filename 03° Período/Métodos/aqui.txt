@@ -1,0 +1,139 @@
+%TRABALHO DE MÉTODOS NUMÉRICOS
+%KLAYVER XIMENES --- MATRÍCULA: 427651
+
+printf('1 - Bisseção\n2 - Falsa Posição\n3 - Pégassos\n');
+metodo = input('Escolha o método que deseja usar: '); 
+
+if (metodo == 1)
+  printf ('\n---Método da Bisseção---\n\n')
+  a = input('Digite o limite inferior: ');
+  b = input('Digite o limite superior: ');
+  erro = input('Digite o erro: ');
+  funcao = input("Digite a função em forma de string: ", "s");
+  f = inline (funcao);
+  iteracao = 0;
+  x=0;
+  fa = f(a);
+  fb = f(b);
+
+  if (fb * fa < 0) %verificar se há raiz no intervalo
+    
+    errox = abs((b-a)/2); %calcular o erro para o criterio de parada
+    
+    do 
+      if (iteracao > 25)
+        break;
+      end
+      
+      fprintf ('\n***** Iteração %d *****\n', iteracao = iteracao+1);
+      
+      x = (b+a)/2; %aplicação da formula
+      fx = f(x);
+      
+      if (fa*fx > 0) %verificação para a substituição do novo intervalo
+        a = x;
+        fa = fx;
+      else
+        b = x;
+      end
+      errox = errox/2;    
+      
+      fprintf('Limite inferior (a): %d\n', a);
+      fprintf('Limite superior (b): %d\n', b);
+      fprintf('Valor de X: %d\n', x);
+      fprintf('Valor do fx: %d\n', fx);
+      fprintf('Erro módulo f(x): %d\n', abs(fx));
+      fprintf('Erro b-a: %d\n', b-a);
+      
+    until (abs(fx) < erro)
+    
+  else
+    printf("\nNão há raiz no intervalo.\n");
+  end
+  fprintf('A raiz aproximada é: %d\n', x);
+end
+
+if (metodo == 2)
+  printf ('\n---Método da Falsa Posição---\n\n')
+  a = input('Digite o limite inferior: ');
+  b = input('Digite o limite superior: ');
+  erro = input('Digite o erro: ');
+  funcao = input("Digite a função em forma de string: ", "s");
+  f = inline (funcao);
+  iteracao = 0;
+  x=0;
+  fa = f(a);
+  fb = f(b);
+    
+  if (fb * fa < 0) %verificar se há raiz no intervalo
+    do 
+      fprintf ('\n***** Iteração %d *****\n', iteracao = iteracao+1);
+      x = ((a * fb) - (b * fa)) / (fb - fa); %aplicação da fórmula
+      fx = f(x);
+      
+      if (fb * fx < 0) %verificação para a substituição do novo intervalo
+        a = x;
+        fa = fx;
+      else
+        b = x;
+      end
+      
+      fprintf('Limite inferior: %d\n', a);
+      fprintf('Limite superior: %d\n', b);
+      fprintf('Valor fa: %d\n', fa);
+      fprintf('Valor fb: %d\n', fb);
+      fprintf('Valor de X: %d\n', x);
+      fprintf('Valor do fx: %d\n', fx);
+      fprintf('Erro módulo f(x): %d\n', abs(fx));
+      fprintf('Erro b-a: %d\n\n', b-a);
+    
+    until (abs(fx) < erro)
+  else
+    printf("\nNão há raiz no intervalo.\n");
+  end
+  fprintf('A raiz aproximada é: %d\n', x);
+end
+
+if (metodo == 3)
+  printf ('\n---Método de Pégassos---\n\n')
+  a = input('Digite o limite inferior: ');
+  b = input('Digite o limite superior: ');
+  erro = input('Digite o erro: ');
+  funcao = input("Digite a função em forma de string: ", "s");
+  f = inline (funcao);
+  iteracao = 0;
+  fa = f(a);
+  fb = f(b);
+
+  if (fb * fa < 0) %verificar se há raiz no intervalo
+    do 
+      fprintf ('\n***** Iteração %d *****\n', iteracao = iteracao+1);
+          
+      x = ((a * fb) - (b * fa)) / (fb - fa); %aplicação da fórmula
+      
+      fx = f(x);
+      
+        if (fb * fx < 0) %verificação para a substituição do novo intervalo
+          a = b;
+          fa = fb;
+        else
+          fa = fa*fb/(fb+fx); %aplicação de pegassos
+        end
+        
+      b = x;
+      fb = fx;
+      fprintf('Limite inferior: %d\n', a);
+      fprintf('Limite superior: %d\n', b);
+      fprintf('Valor f(a): %d\n', fa);
+      fprintf('Valor f(b): %d\n', fb);
+      fprintf('Valor de X: %d\n', x);
+      fprintf('Valor do f(x): %d\n', fx);  
+      fprintf('Erro módulo f(x): %d\n', abs(fx));
+      fprintf('Erro b-a: %d\n\n', b-a);
+        
+    until (abs(fx) < erro)     
+  else
+    printf("\nNão há raiz no intervalo.\n");
+  end
+  fprintf('A raiz aproximada é: %d\n', x);
+end

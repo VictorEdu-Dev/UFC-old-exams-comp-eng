@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1613322768 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(lista)\fila2.c
+	<stdio.h>
+	<stdlib.h>
+	"fila2.h"
+	"lista.h"
+
+1613322854 c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(lista)\fila2.h
+
+1613322854 c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(lista)\lista.h
+
+1613321722 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(lista)\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+
+1613323704 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(lista)\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fila2.h"
+
+1613322768 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(lista)\fila2.c
+	<stdio.h>
+	<stdlib.h>
+	"fila2.h"
+	"lista.h"
+
+1613322854 e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(lista)\fila2.h
+
+1613322854 e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(lista)\lista.h
+
+1613321722 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(lista)\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+
+1613323704 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(lista)\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fila2.h"
+

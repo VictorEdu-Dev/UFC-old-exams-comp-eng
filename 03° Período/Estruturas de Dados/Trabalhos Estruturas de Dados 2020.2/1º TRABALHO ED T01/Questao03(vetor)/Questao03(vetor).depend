@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1613322342 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(vetor)\fila1.c
+	<stdio.h>
+	<stdlib.h>
+	"fila1.h"
+
+1613321230 c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(vetor)\fila1.h
+
+1613323546 source:c:\users\eraldo caetano\desktop\1º trabalho estruturas\questao03(vetor)\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fila1.h"
+
+1613322342 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(vetor)\fila1.c
+	<stdio.h>
+	<stdlib.h>
+	"fila1.h"
+
+1613321230 e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(vetor)\fila1.h
+
+1613323654 source:e:\engenharia de computação\6º semestre\estruturas de dados\1º trabalho estruturas\questao03(vetor)\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fila1.h"
+
