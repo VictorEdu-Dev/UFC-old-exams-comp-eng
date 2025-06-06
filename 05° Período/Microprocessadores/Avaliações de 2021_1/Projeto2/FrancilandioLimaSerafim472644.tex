@@ -1,0 +1,35 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[top=2cm, bottom=2cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{graphicx}
+
+\begin{document}
+\textbf{\underline{ALUNO:} Francilândio Lima Serafim.}
+
+\textbf{\underline{MATRÍCULA:} 472644.}
+\begin{enumerate}
+	\item Em relação ao Leaky Bucket o tráfego em rajada é tratado de forma que o mesmo é transformado em um fluxo constante, enquanto que esse tráfego é tratado de forma a ter uma taxa máxima regulada por parte do Token Bucket.
+	\item O tráfego em rajada é uma variação brusca na taxa de dados que ocorre em um curto intervalo de tempo, que acaba causando congestionamento em uma rede fazendo a conexão tornar-se lenta.
+	\item SMTP é um protocolo de transferência de e-mails, mais usado para transferir e-mails de um servidor para outro com conexão ponto a ponto e usa a porta 25. O FTP é o modo mais simples que se usa para transferir arquivos/dados entre dois computadores e usa as portas 20 e 21.
+	\item Para decodificar a palavra, fazemos a associação entre a n-ésima letra da chave através da primeira coluna da tabela dada com a n-ésima letra da palavra codificada situadas na mesma linha e associamos à letra da primeira linha que está na mesma coluna da última letra mencionada como sendo a correspondente da palavra original.Como a chave tem uma letra a menos que a palavra codificada, a última letra da palavra é associada à primeira do código, então fazendo o que foi descrito encontramos a palavra SEGUIR, e o procedimento pode ser visto na Figure \ref{fig1}.
+	\begin{figure}[!htb]
+		\caption{Decodificação por Vigenère.}
+		\centering
+		\includegraphics[scale=1]{Tabela.png}
+		\label{fig1}
+	\end{figure}
+	\item Prosseguimos pelos passos a seguir:
+	\begin{itemize}
+		\item $n = p\cdot q = 3\cdot 7 = 21$
+		\item $\phi = (p-1)\cdot (q-1) = (3-1)\cdot (7-1) = 12$
+	\end{itemize}
+	
+	Ou seja, temos que $n = 21$, $\phi = 12$, $e = 23$ e $d = 11$, desse modo fazemos:$$original = texto\_cifrado^{d}\mod n$$
+	$$original = 11^{11}\mod 21$$
+	$$original = 2$$
+	Por fim, podemos fazer um teste para verificar o valor encontrado como segue:$$texto\_cifrado = original^e\mod n$$
+	$$2^{23}\mod 21 = 11$$
+	Logo, o texto original vale 2.
+\end{enumerate}
+\end{document}
