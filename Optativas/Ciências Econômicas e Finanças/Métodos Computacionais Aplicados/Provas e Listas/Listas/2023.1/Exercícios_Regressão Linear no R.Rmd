@@ -1,0 +1,113 @@
+---
+title: "Resolução de Exercício de Regressão Linear no R"
+author: "Prof. Weligton Gomes"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercícios da Nota de Aula sobre Regressão Linear no R
+
+```{r}
+library(wooldridge)
+```
+
+# Exemplo 2.3:
+
+```{r}
+data("ceosal1")
+summary(ceosal1)
+
+attach(ceosal1)
+CEOregress <- lm(salary ~ roe, data = ceosal1)
+plot(roe, salary, ylim=c(0,4000))
+abline(CEOregress, col='red')
+
+summary(CEOregress)
+```
+
+$salary$ é o salário anual de CEO em milhares de dólares e #roe# é o retorno médio sobre o patrimônio em percentual. O parâmetro $\beta_1$ irá medir a variação no salário anual quando o retorno médio sobre o patrimônio aumentar em um ponto percentual. 
+
+um $roe = 0$, teremos um salário previsto de $963,19$ ou $US\$$ $963.191$, que é o intercepto. Ademais, se $\Delta roe = 1$, então $\Delta salary = 18,5$ ou $US\$$ $18.501$. Podemos, por fim, desenhar a reta de regressão com o código abaixo.
+
+# Exercício 2.10:
+```{r}
+data("k401k")
+# View(k401k)
+summary(k401k)
+```
+
+## Estimação do modelo
+
+```{r}
+modelo<-lm(prate~mrate, data = k401k)
+summary(modelo)
+```
+
+## Interprete o intercepto de sua equação. Interprete o coeficiente de mrate.
+
+Resposta: $83.075455$ é o valor esperado da taxa de particpação (prate) quando a taxa de contribuição (mrate) é zero.
+
+## Ache o prate predito quando mrate = 3, 5. Essa predição é razoável? Explique o que está acontecendo.
+
+Resposta:
+```{r}
+modelo$coefficients[1] + modelo$coefficients[2] * 3.5
+```
+
+De acordo com as estimações, se $\Delta mrate=3.5$, haverá uma taxa de participação ou no número de contas ativas no plano da ordem de, aproximadamente, $103,6\%$, o que não faz sentido, pois a participação total dos funcionários da empresa encerraria um total de $100,0\%$. 
+
+## Quanto da variação em prate é explicado por mrate? Em sua opinião, isso é bastante? 
+
+Resposta: O $R^2$ desta estimação foi de $0.0747$ implicando que $7,47\%$ das variações em prate são capazes de explicar as variações de mrate.
+
+# Exercício 2
+
+```{r}
+data("ceosal2")
+```
+
+# Ache o salário médio (salary) e a permanência média (ceoten) da amostra.
+
+Resposta:
+
+```{r}
+summary(ceosal2)
+```
+
+# Quantos CEOs estão em seu primeiro ano na posição de CEO (isto é, ceoten = 0)? Qual é a permanência mais longa como CEO?
+
+```{r}
+table(ceosal2 == 0)
+
+max(ceosal2$ceoten)
+```
+
+# Estime o modelo de regressão simples
+
+```{r}
+modelo2 <- lm(salary ~ ceoten, data = ceosal2)
+summary(modelo2)
+```
+
+# Qual é o aumento do salário predito (aproximado) no salário, dado um ano a mais como CEO?
+
+```{r}
+coefficients(modelo2)[2]
+```
+
+# Estime o modelo de regressão simples (log-lin)
+
+```{r}
+modelo3 <- lm(lsalary ~ ceoten, data = ceosal2)
+```
+
+# Qual é o aumento da percentagem predita (aproximado) no salário, dado um ano a mais como CEO?
+
+```{r}
+summary(modelo3)
+```
+

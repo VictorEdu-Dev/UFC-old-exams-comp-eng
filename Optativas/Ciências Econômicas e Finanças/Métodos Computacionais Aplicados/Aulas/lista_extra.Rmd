@@ -1,0 +1,323 @@
+---
+title: "Lista_extra"
+author: 
+  - "Antonio Eraldo Caetano Martins"
+  - "Francisca Jannielly Garcia da Costa"
+  - "Klayver Ximenes Carmo"
+institute: "Universidade Federal do Ceará"
+course: "Métodos Computacionais Aplicados"
+date: "24/06/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(PNADcIBGE)
+library(survey)
+library(dplyr)
+library(haven)
+library(lmtest)
+library(rgl)
+library(faraway)
+library(readxl)
+library(ggplot2)
+```
+
+# Brasil 2022
+
+## a)
+Fazendo a importação dos dados PNAD no site do IBGE
+
+
+```{r}
+variaveis_selecionadasPNAD <- c("UF", "V2007", "V2009", "VD4002", "VD4020")
+dadosPNADc2022.1 <- get_pnadc(year = 2022, quarter = 1, vars = variaveis_selecionadasPNAD)
+dados2022.1 <- dadosPNADc2022.1$variables
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+```{r}
+oc_sexo2022.1 <- svyby(~V2007, ~VD4002, dadosPNADc2022.1, svymean, na.rm = T)
+oc_sexo2022.1
+
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+
+
+## b) O rendimento médio mensal por sexo:
+
+```{r}
+rend_med_mensal_sexo2022.1 <- svyby(~VD4020, ~V2007, dadosPNADc2022.1, svymean, na.rm = T)
+rend_med_mensal_sexo2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## c) A distribuição de pessoas desocupadas por faixa etária (14 a 17 anos, 18 a 24 anos, 25 a 39 anos, 40 a 59 anos, 60 anos ou mais):
+
+```{r}
+dadosPNADc2022.1 <-update(dadosPNADc2022.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+desoc_idade2022.1 <- svyby(~Idade, ~VD4002, dadosPNADc2022.1, svymean, na.rm = T)
+desoc_idade2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## d) O rendimento médio mensal por faixa etária:
+
+```{r}
+rend_med_mensal_idade2022.1 <- svyby(~VD4020, ~Idade, dadosPNADc2022.1, svymean, na.rm = T)
+rend_med_mensal_idade2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+
+
+# Brasil 2023
+
+Fazendo a importação dos dados PNAD no site do IBGE
+```{r}
+variaveis_selecionadasPNAD <- c("UF", "V2007", "V2009", "VD4002", "VD4020")
+dadosPNADc2023.1 <- get_pnadc(year = 2023, quarter = 1, vars = variaveis_selecionadasPNAD)
+dados2023.1 <- dadosPNADc2023.1$variables
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+```{r}
+oc_sexo2023.1 <- svyby(~V2007, ~VD4002, dadosPNADc2023.1, svymean, na.rm = T)
+oc_sexo2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## b) O rendimento médio mensal por sexo:
+
+```{r}
+rend_med_mensal_sexo2023.1 <- svyby(~VD4020, ~V2007, dadosPNADc2023.1, svymean, na.rm = T)
+rend_med_mensal_sexo2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## c) A distribuição de pessoas desocupadas por faixa etária (14 a 17 anos, 18 a 24 anos, 25 a 39 anos, 40 a 59 anos, 60 anos ou mais):
+
+```{r}
+dadosPNADc2023.1 <-update(dadosPNADc2023.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+desoc_idade2023.1 <- svyby(~Idade, ~VD4002, dadosPNADc2023.1, svymean, na.rm = T)
+desoc_idade2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## d) O rendimento médio mensal por faixa etária:
+
+```{r}
+rend_med_mensal_idade2023.1 <- svyby(~VD4020, ~Idade, dadosPNADc2023.1, svymean, na.rm = T)
+rend_med_mensal_idade2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+```{r}
+
+
+# TESTEEE
+qqqq <- dplyr::right_join(oc_sexo2022.1,oc_sexo2023.1, by = "VD4002")
+qqqq
+```
+
+
+
+# Ceará 2022
+
+## Análise para o Estado do Ceará - UF=="Ceará"
+
+## Taxa de desocupação por sexo - Ceará
+
+```{r}
+desoc_sexo_ce2022 <- svyby(~V2007, ~VD4002, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_sexo_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por sexo - Ceará
+
+```{r}
+rend_med_mensal_sexo_ce2022 <- svyby(~VD4020, ~V2007, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_sexo_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Distribuição de pessoas desocupadas por faixa etária
+```{r}
+dadosPNADc2022.1 <- update(dadosPNADc2022.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+
+desoc_idade_ce2022 <- svyby(~Idade, ~VD4002, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_idade_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por faixa etária - Ceará
+
+```{r}
+rend_med_mensal_idade_ce2022 <- svyby(~VD4020, ~Idade, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_idade_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+# Ceará 2023
+
+## Análise para o Estado do Ceará - UF=="Ceará"
+
+## Taxa de desocupação por sexo - Ceará
+
+```{r}
+desoc_sexo_ce2023 <- svyby(~V2007, ~VD4002, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_sexo_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por sexo - Ceará
+
+```{r}
+rend_med_mensal_sexo_ce2023 <- svyby(~VD4020, ~V2007, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_sexo_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Distribuição de pessoas desocupadas por faixa etária
+```{r}
+dadosPNADc2023.1<-update(dadosPNADc2023.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+
+desoc_idade_ce2023 <- svyby(~Idade, ~VD4002, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_idade_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por faixa etária - Ceará
+
+```{r}
+rend_med_mensal_idade_ce2023 <- svyby(~VD4020, ~Idade, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_idade_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Gráficos
+
+
+```{r}
+
+# Criar um dataframe para cada ano
+
+ocS2022.1 <- data.frame(oc_sexo2022.1)
+df_oc_sexo2022.1 <- data.frame(subset(ocS2022.1, select = -c(VD4002,se1,se2)))
+names(df_oc_sexo2022.1)[names(df_oc_sexo2022.1) == "V2007Homem"] <- "Homem"
+names(df_oc_sexo2022.1)[names(df_oc_sexo2022.1) == "V2007Mulher"] <- "Mulher"
+
+df_oc_sexo2022.1 <- cbind(Categoria = c("Pessoas ocupadas", "Pessoas desocupadas"), df_oc_sexo2022.1)
+df_oc_sexo2022.1$Ano <- rep(2022,2)
+
+oc2023.1 <- data.frame(oc_sexo2023.1)
+df_oc_sexo2023.1 <- data.frame(subset(oc2023.1, select = -c(VD4002,se1,se2)))
+names(df_oc_sexo2023.1)[names(df_oc_sexo2023.1) == "V2007Homem"] <- "Homem"
+names(df_oc_sexo2023.1)[names(df_oc_sexo2023.1) == "V2007Mulher"] <- "Mulher"
+
+df_oc_sexo2023.1 <- cbind(Categoria = c("Pessoas ocupadas", "Pessoas desocupadas"), df_oc_sexo2023.1)
+df_oc_sexo2023.1$Ano <- rep(2023,2)
+
+# Concatenar os dataframes
+dadosocSplot <- rbind(df_oc_sexo2022.1, df_oc_sexo2023.1)
+
+# Transformar o dataframe no formato "long" utilizando a função gather() do pacote tidyr
+library(tidyr)
+dados_long <- gather(dadosocSplot, Gênero, Valor, Homem:Mulher)
+
+# Criar o gráfico de barras utilizando ggplot2
+grafico <- ggplot(dados_long, aes(x = Categoria, y = Valor, fill = Gênero)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ Ano, ncol = 1) +
+  labs(x = "Categoria", y = "Valor", title = "Comparação das taxas de ocupação e desocupação por sexo por ano (Brasil)") +
+  scale_fill_manual(values = c("#0000FF", "#FF0000"), labels = c("Homem", "Mulher")) +
+  theme_minimal()
+
+# Exibir o gráfico
+print(grafico)
+
+```
+
+```{r}
+
+rendS2022.1 <- data.frame(rend_med_mensal_sexo2022.1)
+df_rend_sexo2022.1 <- data.frame(subset(rendS2022.1, select = -c(V2007,se)))
+names(df_rend_sexo2022.1)[names(df_rend_sexo2022.1) == "VD4020"] <- "Rendimento"
+
+df_rend_sexo2022.1 <- cbind(Gênero = c("Homem", "Mulher"), df_rend_sexo2022.1)
+df_rend_sexo2022.1$Ano <- rep(2022,2)
+
+
+rendS2023.1 <- data.frame(rend_med_mensal_sexo2023.1)
+df_rend_sexo2023.1 <- data.frame(subset(rendS2023.1, select = -c(V2007,se)))
+names(df_rend_sexo2023.1)[names(df_rend_sexo2023.1) == "VD4020"] <- "Rendimento"
+
+df_rend_sexo2023.1 <- cbind(Gênero = c("Homem", "Mulher"), df_rend_sexo2023.1)
+df_rend_sexo2023.1$Ano <- rep(2023,2)
+
+
+# Concatenar os dataframes
+dadosrendSplot <- rbind(rendS2022.1, rendS2023.1)
+
+# Criar o gráfico de barras utilizando ggplot2
+grafico <- ggplot(dados, aes(x = Gênero, y = Rendimento, fill = Gênero)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ Ano, ncol = 1) +
+  labs(x = "Gênero", y = "Rendimento", title = "Comparação de rendimento médio mensal por Gênero e Ano (Brasil)") +
+  scale_fill_manual(values = c("#0000FF", "#FF0000"), labels = c("Homem", "Mulher")) +
+  theme_minimal()
+
+grafico <- grafico + theme(legend.position = "none")
+# Exibir o gráfico
+print(grafico)
+
+
+
+```
+
+
+
+```{r}
+
+
+
+
+
+
+```
+

@@ -1,0 +1,298 @@
+---
+title: "Universidade Federal do Ceará (UFC/Sobral)"
+subtitle: "Aula 06 - Métodos Computacionais Aplicados"
+author: "Prof. Weligton Gomes"
+date: '`r format(Sys.Date(), "%d/%m/%Y")`' 
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instalação e Ativação de Pacotes
+
+```{r, echo=TRUE}
+#install.packages("ISwR")
+library(ISwR)
+```
+
+# Extrair números aleatórios de uma distribuição normal - rnorm()
+
+Observação: r de random ou aleatório e norm - de distribuição normal
+
+```{r}
+x<-rnorm(100)
+y<-rnorm(100,mean = 5, sd = 2)
+print(x)
+plot(x,y)
+```
+
+#Visualização de dados pelo comando View
+
+```{r}
+View(rnorm(100))
+plot(rnorm(100))
+```
+
+Os dois caracteres <- devem ser lidos como um único símbolo: uma seta apontando para a variável à qual o valor é atribuído. Isso é conhecido como operador de atribuição.
+
+```{r}
+x <- 2
+x + x
+```
+
+# Operação com Vetores: 
+
+Um ponto forte do R é que ele pode manipular vetores de dados inteiros como objetos únicos. 
+Um vetor de dados é simplesmente uma matriz de números e vetor pode ser construído assim:
+
+```{r}
+weight <- c(60, 72, 57, 90, 95, 72)
+height <- c(1.75, 1.80, 1.65, 1.90, 1.74, 1.91)
+bmi <- weight/height^2
+bmi
+mean(bmi)
+summary(bmi)
+```
+
+Considere, por exemplo, o cálculo da média e do desvio padrão da variável weight de forma manual
+
+Média = Somatório de weight/número de observações
+
+```{r}
+sum(weight)
+sum(weight)/length(weight)
+```
+
+Desvio padrão = A raíz quadrada da variância. Onde a variáncia é o somatório dos desvios médio quadrado / n-1
+
+```{r}
+xbar <- sum(weight)/length(weight)
+weight - xbar
+(weight - xbar)^2
+sum((weight - xbar)^2)
+sqrt(sum((weight - xbar)^2)/(length(weight) - 1))
+```
+
+De forma mais fácil e ágil, tem-se a função mean():
+
+```{r}
+mean(height)
+sd(height)
+
+mean(weight)
+sd(weight)
+```
+
+Como um exemplo um pouco mais complicado do que R pode fazer, considere o seguinte: A regra prática é que o IMC (BMI) para um indivíduo com peso normal deve estar entre 20 e 25, e queremos saber se nossos dados se desviam sistematicamente deste. Você pode usar um teste t de uma amostra para avaliar se o IMC das seis pessoas pode ser considerado como tendo uma média de 22,5, dado que eles vêm de uma distribuição normal. Para isso, você pode usar a função t.test. 
+
+
+(Você pode não conhecer a teoria do teste t ainda. O exemplo é incluído aqui principalmente para dar alguma indicação de como é a saída estatística “real”).
+
+
+```{r}
+t.test(bmi, mu=22.5)
+```
+
+O argumento $\mu=22.5$ atribui um valor ao argumento formal $mu$, que representa a letra grega $\mu$ convencionalmente usada para a média teórica. Se isso não for fornecido, o teste t usaria o valor padrão $mu=0$.
+
+Para um teste como este, obtemos uma impressão mais extensa do que nos exemplos anteriores.Você pode se concentrar no valor de p, que é usado para testar a hipótese de que a média é $22,5$. O valor de p não é pequeno, indicando que não é improvável obter dados como os observados se a média fosse de fato $22,5$. (Falando de forma simplificada; na verdade, p é a probabilidade de obter um valor t maior que $0,3449$ ou menor que $-0,3449$). No entanto, você também pode observar o intervalo de confiança de $95\%$ para a verdadeira média. Este intervalo é bastante amplo, indicando que realmente temos muito pouca informação sobre a verdadeira média.
+
+# Gráficos no R
+
+```{r}
+plot(height,weight)
+plot(height, weight, pch=18, main = "Peso versus Altura", xlab = "Altura", ylab = "Peso") 
+#pch = plotting Character (0:18)
+hh <- c(1.65, 1.70, 1.75, 1.80, 1.85, 1.90)
+lines(hh, 22.5 * hh^2)
+
+args(plot.default)
+```
+
+# Funções e Argumentos
+
+Muitas coisas em R são feitas usando chamadas de função, comandos que se parecem com uma aplicação de uma função matemática de uma ou várias variáveis; por exemplo, log (x) ou plot (altura, peso).
+
+```{r}
+args(plot.default)
+```
+
+# Vetores: 
+
+Existem mais dois tipos, vetores de caracteres e vetores lógicos. Um vetor de caracteres é um vetor de strings de texto, cujos elementos são especificados e impressos entre aspas:
+
+```{r}
+c("Huey","Dewey","Louie")
+```
+
+Não importa se você usa símbolos de aspas simples ou duplas, desde que a aspa esquerda seja igual à direita:
+
+```{r}
+a<-c('Huey','Dewey','Louie')
+c(T,T,F,T)
+bmi > 25
+```
+
+Se você imprimir um vetor de caracteres, geralmente ele sairá com aspas adicionadas a cada elemento. Existe uma maneira de evitar isso, ou seja, usar a função cat Por exemplo,
+
+```{r}
+cat(c("Huey","Dewey","Louie"))
+```
+
+Observação: Valores Missing no R são representados por $NA$.
+
+# Funções que criam vetores
+
+Aqui, apresentamos três funções, c, seq e rep, que são usadas para criar vetores em várias situações. O primeiro deles, c, já foi introduzido. É a abreviação de “concatenar”, juntando itens de ponta a ponta, que é exatamente o que a função faz:
+
+```{r}
+c(42,57,12,39,1,3,4)
+x <- c(1, 2, 3)
+y <- c(10, 20)
+c(x, y, 5)
+```
+
+A segunda função, seq (“sequência”), é usada para séries de números equidistantes.
+
+```{r}
+seq(4,9)
+4:9
+```
+
+Se você quiser uma sequência em saltos de 2.
+
+```{r}
+seq(4,10,2)
+```
+
+A terceira função, rep (“replicar”), é usada para gerar valores repetidos. Ele é usado em duas variantes, dependendo se o segundo argumento é um vetor ou um único número:
+
+```{r}
+oops <- c(7,9,13)
+rep(oops,3)
+rep(oops,1:3)
+rep(1:2,c(10,15))
+
+rep(1:2,each=10) #Igual ao comando abaixo.
+rep(1:2,c(10,10))
+```
+
+Em R, a noção de matriz é estendida a elementos de qualquer tipo, então você poderia ter, por exemplo, uma matriz de caracteres (string). Matrizes e arranjos são representadas como vetores com dimensões:
+
+# Exemplo de matrizes nas notas de aula
+
+```{r}
+x <- 1:12
+dim(x) <- c(3,4)
+
+y<-matrix(c(2,4,5,8,3,2,1,12,9),nrow=3,byrow=TRUE)
+
+x <- matrix(1:12,nrow=3,byrow=T)
+rownames(x) <- LETTERS[1:3]
+colnames(x) <- LETTERS[4:7]
+x
+
+colnames(x)<-c("Cajá","Melão", "Abacaxi", "Maçã")
+x
+```
+
+# Matriz Transposta
+
+```{r}
+t(x)
+```
+
+# Inversa de Matriz
+
+```{r}
+solve(y)
+```
+
+Você pode “colar” vetores ou juntar coluna ou linha, usando as funções cbind (coluna) e rbind (linha).
+
+```{r}
+cbind(A=1:4,B=5:8,C=9:12)
+rbind(A=1:4,B=5:8,C=9:12)
+```
+
+
+```{r, echo=TRUE}
+library(ISwR)
+data(energy)
+```
+
+# Fator
+
+É comum em dados estatísticos ter variáveis categóricas, indicando alguma subdivisão dos dados, como classe social, etc. Essas são inseridas por meio de um código numérico. Essas variáveis devem ser especificadas como fatores em R.
+
+```{r}
+pain <- c(0,3,2,2,1)
+fpain <- factor(pain,levels=0:3)
+levels(fpain) <- c("none","mild","medium","severe")
+
+fpain
+as.numeric(fpain)
+levels(fpain)
+```
+
+# Listas
+
+Às vezes, é útil combinar uma coleção de objetos em um objeto composto maior. Isso pode ser feito usando listas.
+
+# function list
+intake = ingestão
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.post <- c(3910,4220,3885,5160,5645,4680,5265,5975,6790,6900,7335)
+length(intake.pre)
+length(intake.post)
+```
+
+Para combinar esses vetores individuais em uma lista, você pode dizer
+
+```{r}
+mylist <- list(before=intake.pre,after=intake.post)
+mylist
+
+mylist$after
+```
+
+# Dataframe
+
+Um quadro de dados corresponde ao que outros pacotes estatísticos chamam de “matriz de dados” ou “conjunto de dados”. 
+
+É uma lista de vetores e / ou fatores do mesmo comprimento que estão relacionados “transversalmente” de forma que os dados na mesma posição venham da mesma unidade experimental (sujeito, animal, etc.). Além disso, ele possui um conjunto exclusivo de nomes de linhas.
+
+```{r}
+d <- data.frame(intake.pre,intake.post)
+d$intake.pre
+```
+
+# Indexação:  Caso de um ou mais índices
+
+Se você precisa de um elemento específico em um vetor, por exemplo, o indivíduo de número 5, você pode fazer:
+
+```{r}
+intake.pre[5] #Caso de um elemento
+intake.pre[5]<-6395
+intake.pre[c(3,5,7)] #Caso de mais de um elemento do vetor
+```
+
+ou de outra forma;
+
+```{r}
+v <- c(3,5,7)
+intake.pre[v]
+
+intake.pre[1:5] #No caso de uma sequência de elementos
+intake.pre[-c(3,5,7)] 
+#Apresenta todas as informações, exceto aquelas 
+#com a indexação ou número 3, 5 e 7.
+
+intake.pre1<-intake.pre[-c(3,5,7)] 
+#Criação de um vetor excluindo alguns elementos do vetor original.
+```
+

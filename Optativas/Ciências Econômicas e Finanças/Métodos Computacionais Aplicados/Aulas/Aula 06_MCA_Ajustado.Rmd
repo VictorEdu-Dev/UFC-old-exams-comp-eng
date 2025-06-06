@@ -1,0 +1,277 @@
+---
+title: "Universidade Federal do Ceará (UFC/Sobral)"
+subtitle: "Aula 06 - Métodos Computacionais Aplicados"
+author: "Prof. Weligton Gomes"
+date: "22/05/2023"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISwR)
+
+data(energy)
+data(thuesen)
+```
+
+# Funções que facilitam a manipulação de dados no R
+
+```{r}
+thue1 <- subset(thuesen,blood.glucose<7)
+thue1
+
+thue2 <- transform(thuesen,log.gluc=log(blood.glucose))
+thue2
+```
+
+```{r}
+thue3 <- within(thuesen,{
+  log.gluc <- log(blood.glucose)
+  m <- mean(log.gluc)
+  centered.log.gluc <- log.gluc - m 
+  rm(m)
+})
+thue3
+
+summary(thue3)
+```
+
+o R é uma linguagem que permite criar novas funções. Na verdade, muitas das funções em R são atualmente funções de funções. A estrutura de uma função é dada abaixo:
+
+myfunction<-function(arg1, arg2,...){
+  statements ou afirmações
+  return(object)
+}
+
+O R é uma verdadeira linguagem de programação que permite a execução condicional e também construções de loop. Por exemplo:
+
+```{r}
+for(i in 1:5){
+  print(i)
+}
+```
+
+```{r}
+# criando vetor de exemplo
+x <- 10:20
+ 
+# divide cada elemento por 10
+for(i in seq_along(x)) 
+  x[i] <- x[i]/10
+ 
+# resultado
+x
+```
+
+
+```{r}
+y <- 12345
+x <- y/2
+while (abs(x*x-y) > 1e-10) x <- (x + y/x)/2
+x
+x^2
+```
+
+Observe a construção da expressão while (condição), que diz que a expressão deve ser avaliada enquanto a condição for TRUE.
+
+O teste ocorre na parte superior do loop
+
+Uma variação do mesmo algoritmo com o teste na parte inferior do loop pode ser escrita com uma construção repetida:
+
+```{r}
+y<-12345
+x <- y/2
+repeat{
+  x <- (x + y/x)/2
+  if (abs(x*x-y) < 1e-10) break
+}
+x
+x^2
+```
+
+## Progressão Aritmética (PA) e Progressão Geométrica (PG)
+
+Criando funções para calcular os n-ésimos termos e a soma de uma PA:
+
+```{r}
+nesimotermo<-function(a1, n, r){
+  a1+(n-1)*r
+}
+
+nesimotermo(107,101,6)
+```
+
+```{r}
+termonpa<-function(a1, an, r){
+  ((an-a1)/r)+1
+}
+termonpa(2,100,2)
+```
+
+```{r}
+somapa<-function(a1, n, r){
+  an=a1+(n-1)*r
+  ((a1+an)*n)/2
+}
+
+somapa(2,5,2)
+```
+
+## Progressão Geométrica (PG)
+
+Criando funções para calcular os n-ésimos termos e a soma de uma PG finita e infinita:
+
+### PG finita
+
+```{r}
+nesimotermopg<-function(a1,q,n){
+  a1*q^(n-1)
+}
+
+nesimotermopg(3,2,4)
+```
+
+```{r}
+somapg<-function(a1, q, n){
+  (a1*(q^n -1))/(q-1)
+}
+
+somapg(1,10,5)
+```
+
+### PG infinita
+
+```{r}
+sompginf<-function(a1, q){
+  a1/(1-q)
+}
+
+sompginf(1, 0.5)
+```
+
+# Exercícios de P.A e P.G
+
+Questão 01: Qual é o centésimo primeiro termo de uma P.A. cujo primeiro termo é 107 e a razão é 6?
+
+```{r}
+nesimotermo<-function(a1, n, r){
+  a1+(n-1)*r
+}
+
+nesimotermo(107,101,6)
+```
+
+Questão 02: Sabendo que o primeiro termo é 10, o último é 109 e a razão é 3, basta usar a fórmula do termo geral para encontrar a posição do termo 109.
+
+```{r}
+termonpa<-function(a1, an, r){
+  ((an-a1)/r)+1
+}
+termonpa(10,109,3)
+```
+
+Questão 03: Determine o décimo quinto termo da progressão geométrica a seguir: (1, 3, 9, 27, . . .).
+
+```{r}
+nesimotermopg<-function(a1,q,n){
+  a1*q^(n-1)
+}
+
+nesimotermopg(1,3,15)
+```
+
+
+## Transformar a temperatura em grau Fahrenheit para grau Celsius.
+
+Lembre-se que em grau Fahrenheit a escala de temperatura varia de $32^{\circ}F$ ($0^{\circ}C$) até $212^{\circ}F$ ($100^{\circ}C$).
+
+```{r}
+fahrenheit_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+
+fahrenheit_to_celsius(55)
+fahrenheit_to_celsius(212)
+```
+
+# Entrada de Dados no R. 
+
+Observação: No Windows o endereço do arquivo a $\backslash$  deve ser substituida por $/$.
+
+## Inserindo dados com o Data Entry
+
+```{r, echo=FALSE}
+myData <- data.frame()
+myData <- edit(myData)
+```
+
+## Arquivo no formato .txt (Bloco de Notas)
+
+```{r}
+x401k <- read.delim("~/Base de Dados_MCA/401k.txt")
+```
+
+## Arquivo no formato .csv (Separador de Vírgula)
+```{r}
+nerlove <- read.csv2("~/Base de Dados_MCA/nerlove.csv")
+```
+
+## Arquivo no formato .xlsx (Excel)
+
+```{r}
+library(xlsx)
+```
+
+```{r}
+rental1 <- read.xlsx("~/Base de Dados_MCA/rental1.xlsx", 1)
+```
+
+## Arquivo no formato .dta (Stata)
+
+```{r}
+library(haven)
+```
+
+```{r}
+# mydata <- read.dta("c:/mydata.dta")
+
+campus <- read_dta("~/Base de Dados_MCA/campus.dta")
+```
+
+# Manipulação de Bases de Dados
+
+```{r}
+library(readxl)
+```
+
+```{r}
+rental1 <- read_excel("~/Base de Dados_MCA/rental1.xlsx")
+
+rental2 <- read_excel("~/Base de Dados_MCA/rental2.xlsx")
+
+rental3 <- read_excel("~/Base de Dados_MCA/rental3.xlsx")
+
+rental4 <- read_excel("~/Base de Dados_MCA/rental4.xlsx")
+
+```
+
+## A Função Merge
+
+```{r}
+# mydata<-merge(mydata1, mydata2, by=c("id_1","id_2"))
+
+rental12<-merge(rental1, rental2, by=c("city","year"))
+```
+
+## A Função Append
+
+```{r}
+rental34<-rbind(rental3, rental4)
+```
+

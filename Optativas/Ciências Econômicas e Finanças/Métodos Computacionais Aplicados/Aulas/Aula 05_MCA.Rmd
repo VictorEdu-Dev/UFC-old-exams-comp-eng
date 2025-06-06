@@ -1,0 +1,371 @@
+---
+title: "Universidade Federal do Ceará (UFC/Sobral)"
+subtitle: "Aula 05 - Métodos Computacionais Aplicados"
+author: "Prof. Weligton Gomes"
+date: "17/04/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=TRUE}
+library(ISwR)
+data(energy)
+```
+
+# Fator
+
+É comum em dados estatísticos ter variáveis categóricas, indicando alguma subdivisão dos dados, como classe social, etc. Essas são inseridas por meio de um código numérico. Essas variáveis devem ser especificadas como fatores em R.
+
+```{r}
+pain <- c(0,3,2,2,1)
+fpain <- factor(pain,levels=0:3)
+levels(fpain) <- c("none","mild","medium","severe")
+
+fpain
+as.numeric(fpain)
+levels(fpain)
+```
+
+# Listas
+
+Às vezes, é útil combinar uma coleção de objetos em um objeto composto maior. Isso pode ser feito usando listas.
+
+# function list
+intake = ingestão
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.post <- c(3910,4220,3885,5160,5645,4680,5265,5975,6790,6900,7335)
+length(intake.pre)
+length(intake.post)
+```
+
+Para combinar esses vetores individuais em uma lista, você pode dizer
+
+```{r}
+mylist <- list(before=intake.pre,after=intake.post)
+mylist
+
+mylist$after
+```
+
+# Dataframe
+
+Um quadro de dados corresponde ao que outros pacotes estatísticos chamam de “matriz de dados” ou “conjunto de dados”. 
+
+É uma lista de vetores e / ou fatores do mesmo comprimento que estão relacionados “transversalmente” de forma que os dados na mesma posição venham da mesma unidade experimental (sujeito, animal, etc.). Além disso, ele possui um conjunto exclusivo de nomes de linhas.
+
+```{r}
+d <- data.frame(intake.pre,intake.post)
+d$intake.pre
+```
+
+# Indexação:  Caso de um ou mais índices
+
+Se você precisa de um elemento específico em um vetor, por exemplo, o indivíduo de número 5, você pode fazer:
+
+```{r}
+intake.pre[5] #Caso de um elemento
+intake.pre[5]<-6395
+intake.pre[c(3,5,7)] #Caso de mais de um elemento do vetor
+```
+
+ou de outra forma;
+
+```{r}
+v <- c(3,5,7)
+intake.pre[v]
+
+intake.pre[1:5] #No caso de uma sequência de elementos
+intake.pre[-c(3,5,7)] 
+#Apresenta todas as informações, exceto aquelas 
+#com a indexação ou número 3, 5 e 7.
+
+intake.pre1<-intake.pre[-c(3,5,7)] 
+#Criação de um vetor excluindo alguns elementos do vetor original.
+```
+
+# Exercícios de Fixação
+
+Questão 01 - Mostrar comandos que podem ser usados para criar os objetos e/ou executar as instruções a seguir.
+
+a) o vetor formado pelos elementos 4, 8, 2.
+
+```{r}
+c(4,8,2)
+a<-c(4,8,2)
+a
+```
+
+b) selecionar o primeiro e terceiro elemento do vetor formado pelos elementos 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20.
+
+```{r}
+#Forma "trabalhosa"
+b1<-c(10, 11 ,12 ,13, 14, 15, 16, 17, 18, 19, 20) 
+
+b2<-seq(10,20,1)
+b1[c(1,3)]
+b1[c(1, 3, 5, 7)]
+```
+
+c) o vetor com a sequência de valores: -3, -2, -1,  0,  1,  2, 3.
+
+```{r}
+seq(-3,3,1)
+c<-seq(-3,3,1)
+c
+```
+
+d) o vetor com a sequência de notas dos alunos: 2.4, 3.4, 4.4, 5.4, 6.4, 7.4, 8.4, 9.4, 10.4.
+
+```{r}
+seq(2.4,10.4,1)
+```
+
+e) o vetor: 1,  3,  5,  7,  9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39.
+
+```{r}
+seq(1,39,2)
+```
+
+f) o vetor de elementos repetidos: 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3.
+
+rep(objeto, n vezes)
+Sequência: seq(), 1:3
+
+```{r}
+f1<-1:3
+f2<-seq(1,3,1)
+
+rep(f1,4)
+rep(1:3,4)
+```
+
+g) o vetor de sequência repetida: 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4.
+
+```{r}
+rep(c(1,2,3),c(3,3,3))
+```
+
+h) o vetor alfanumérico: "Parana", "Sao Paulo", "Minas Gerais".
+
+```{r}
+c("Parana", "Sao Paulo", "Minas Gerais")
+```
+
+Questão 02 - Faça o que se pede:
+
+a) Crie um vetor com os nomes do alunos Pedro, João e Maria;
+
+```{r}
+nomes<-c("Pedro", "João", "Maria")
+```
+
+b) Crie uma matriz 3x3 com os números pares iniciando em 2 e finalizando em 18. Ordenar pela linha. 
+
+criação de matriz: função matrix(objeto, nrow = , ncol = , byrow = TRUE)
+
+```{r}
+matriz<-matrix(seq(2,18,2), ncol = 3, byrow = TRUE)
+```
+
+c) Crie uma lista com os objetos criados nos itens (a) e (b):
+
+```{r}
+lista<-list(nomes, matriz)
+lista
+```
+
+d) Consultar apenas o objeto que se encontra na primeira posição da lista
+
+```{r}
+lista[[1]]
+```
+
+e) Suponha que você digitou um nome errado e que em vez de maria o nome correto seria mariana. 
+Obs: proceder com a alteração a partir da lista criada.
+
+```{r}
+lista[[1]][3]<-"mariana"
+```
+
+f) Substitua o valor 10 por 100 na matriz que se encontra dentro da lista.
+
+```{r}
+lista[[2]]
+lista[[2]][[2,2]]<-100
+lista[[2]]
+```
+
+Questão 03: Mostre comando(s) para construir uma matriz 10 × 10 tal que as entradas são iguais a i x j, sendo i a linha e j a coluna.
+
+```{r}
+matriz2<-matrix(1:100, ncol=10, byrow = TRUE)
+matriz3<-matrix(seq(1,100,1), ncol=10, byrow = TRUE)
+```
+
+Questão 04: Construa um data-frame com uma tabela com três colunas: x, x^2 e exp(x), com x variando de 0 a 50.
+
+```{r}
+x<-0:50
+x2<-x^2
+x3<-exp(x)
+
+dados<-data.frame(x,x2,x3)
+dados
+
+View(dados)
+print(dados)
+```
+
+# Seleção condicional
+
+Na prática, você geralmente precisa extrair dados que satisfaçam certos critérios. Isso pode ser feito simplesmente inserindo uma expressão relacional em vez do índice.
+
+```{r}
+intake.post[intake.pre > 7000]
+intake.post[intake.pre > 7000 & intake.pre <= 8000]
+```
+
+# Indexação de Dataframe
+
+```{r}
+d <- data.frame(intake.pre,intake.post)
+d[5,1]
+d[5,]
+d[d$intake.pre>7000,]
+d[1:2,]
+head(d)
+tail(d)
+```
+
+```{r}
+data(energy)
+energy$expend
+energy$stature
+```
+
+# Ordenando um vetor com a função sort()
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.pre_ord <- sort(c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770))
+```
+
+# Listar objetos
+
+```{r}
+ls()
+```
+
+# Remover objetos
+
+```{r}
+rm()
+```
+
+# Dados agrupados e Dataframe
+
+Separação de vetores por cada grupo (lean (magro) e obese(obeso), gasto (expend) e altura (stature))
+
+```{r}
+exp.lean <- energy$expend[energy$stature=="lean"]
+length(exp.lean)
+exp.obese <- energy$expend[energy$stature=="obese"]
+length(exp.obese)
+```
+
+# Alternativamente, utiliza-se a função split() que gera uma lista de vetores de acordo com o agrupamento.
+
+```{r}
+l <- split(energy$expend, energy$stature)
+l
+```
+
+Uma aplicação comum de loops é aplicar uma função a cada elemento de um conjunto de valores ou vetores e coletar os resultados em uma única estrutura;
+
+# Função sapply, lapply e tapply
+
+Função sapply - tenta simplificar (daí o 's'): A função sapply aplica funções a cada elemento de um vetor, pode ser aplicada em vetores unidimensionais, data.frames (agrupamentos de vetores) e listas (também considerados vetores). Por padrão a função simplifica os resultados se possível, então pode retornar tanto único vetor, uma matriz ou listas.
+
+Função lapply - sempre retorna uma lista (daí o 'l'): A função lapply funciona praticamente igual à sapply e permite a aplicação de uma função em cada elemento de um vetor unidimensional, data.frame ou lista.
+
+Função tapply permite que você crie tabelas (daí o ‘t’): A função tapply divide as estruturas de dados e aplica funções a cada subconjunto, geralmente as funções passada calculam estatísticas descritivas. O argumento INDEX especifica um ou mais fatores para dividir os elementos da estrutura. O funcionamento dessa função é similar as funções aggregate e by.
+
+ou de outra forma:
+
+Função tapply permite que você crie tabelas do valor de uma função em subgrupos definidos por seu segundo argumento, que pode ser um fator ou uma lista de fatores.
+
+```{r}
+library(ISwR)
+data(thuesen)
+
+mean(thuesen$blood.glucose)
+mean(thuesen$short.velocity, na.rm = TRUE)
+sapply(thuesen, mean, na.rm=T)
+```
+```{r}
+
+lapply(thuesen, sd, na.rm=TRUE)
+```
+```{r}
+tapply(energy$expend, energy$stature, mean)
+```
+
+# Utilize a função sort( ) para ordenar valores em um vetor (intake = ingestão)
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.pre_sort <- sort(c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770))
+```
+
+# Ambiente R
+
+```{r}
+ls()
+rm()
+
+```
+
+# Funções Par ( ) e Layout ( )
+
+Com a função par(), você pode incluir as opções mfrow=c(nrows, ncols) para criar uma matriz de gráficos de nrows x ncols que são ajustados pela linha. 
+
+mfcol=c(nrows, ncols) ajusta os gráficos na matriz por coluna.
+
+## Exemplo: # 4 figuras organizadas em 2 linhas e 2 colunas
+
+```{r}
+attach(mtcars)
+par(mfrow=c(2,2))
+plot(wt,mpg, main="Scatterplot of wt vs. mpg") 
+plot(wt,disp, main="Scatterplot of wt vs disp") 
+hist(wt, main="Histogram of wt")
+boxplot(wt, main="Boxplot of wt")
+```
+
+## Exemplo: # 3 figuras organizadas em 3 linhas e 1 colunas
+
+```{r}
+attach(mtcars) 
+par(mfrow=c(3,1))
+hist(wt)
+hist(mpg)
+hist(disp)
+```
+
+A função layout() tem a forma layout(mat) onde mat é um objeto da matriz que especifica o local das N figuras para plotagem.
+
+## Exemplo: # Uma figura na linha 1 e duas figuras na linha 2
+
+```{r}
+attach(mtcars)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+hist(wt)
+hist(mpg)
+hist(disp)
+```
+

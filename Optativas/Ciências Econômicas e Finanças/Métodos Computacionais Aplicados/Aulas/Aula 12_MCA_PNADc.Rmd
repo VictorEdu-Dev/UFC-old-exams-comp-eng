@@ -1,0 +1,380 @@
+---
+title: "Universidade Federal do Ceará (UFC/Sobral)"
+subtitle: "Aula 12 - Métodos Computacionais Aplicados"
+author: "Prof. Weligton Gomes"
+date: "29/05/2023"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+options(scipen=999)
+```
+
+# Importação de Bases de Dados no R.
+
+```{r}
+#install.packages("PNADcIBGE")
+#install.packages("survey")
+#install.packages("dplyr")
+#install.packages("SIPDIBGE")
+#library(SIPDIBGE)
+
+library(PNADcIBGE)
+library(survey)
+library(dplyr)
+```
+
+
+# Importação de Microdados da PNAD Contínua do IBGE
+
+## Importação Online
+A função get_pnadc permite o download, leitura, rotulação e criação do objeto do plano amostral da pesquisa. Esta função pode ser usada para microdados trimestrais e anuais.
+
+## Argumentos da função get_pnadc:
+
+help("get_pnadc")
+
+get_pnadc(
+  year,
+  quarter = NULL,
+  interview = NULL,
+  topic = NULL,
+  vars = NULL,
+  defyear = NULL,
+  defperiod = NULL,
+  labels = TRUE,
+  deflator = TRUE,
+  design = TRUE,
+  savedir = tempdir()
+)
+
+##  Argumentos da função get_pnadc:
+
+1) year: O ano dos dados a serem baixados. Deve ser um número entre 2012 e o ano atual. Vetor não aceito.
+
+2) quarter: O trimestre do ano dos dados a serem baixados. Deve ser numeração de 1 a 4. Vetor não aceito. Se NULL, o número da entrevista ou do tópico deve ser fornecido.
+
+3) interview: O número da entrevista dos dados a serem baixados. Deve ser numeração de 1 a 5. Vetor não aceito. Usando esta opção, obterá dados anuais por entrevista. Se NULL, trimestre ou número do tópico deve ser fornecido.
+
+4) topic: O trimestre relacionado ao tópico dos dados a serem baixados. Deve ser numeração de 1 a 4. Vetor não aceito. Usando esta opção, obterá dados anuais por tópico. Se NULL, trimestre ou número da entrevista deve ser fornecido.
+
+5) vars: Vetor de nomes de variáveis a serem mantidos para análise. O padrão é manter todas as variáveis.
+
+6) defyear: O ano dos dados do deflator a serem baixados para microdados anuais. Deve ser um número entre 2017 e o último ano disponível. Vetor não aceito. Se NULL, o ano deflator será definido como o último ano disponível para microdados de entrevista, ou igual ao ano para microdados de tópico. Quando o trimestre for definido, este argumento será ignorado. Este argumento será usado somente se o deflator foi definido como TRUE.
+
+7) defperiod: O período trimestral dos dados do deflator a serem baixados para microdados anuais por tópico. Deve ser numeração de 1 a 4. Vetor não aceito. Se NULL, o período deflator será definido como igual ao tópico. Quando o trimestre ou entrevista for definido, este argumento será ignorado. Este argumento será usado somente se o deflator foi definido como TRUE.
+
+8) labels: Valor lógico. Se TRUE, as variáveis categóricas serão apresentadas como fatores com rótulos correspondentes ao dicionário da pesquisa.
+
+9) deflator: Valor lógico. Se TRUE, as variáveis do deflator estarão disponíveis para uso nos microdados.
+
+10) design: Valor lógico. Se TRUE, retornará um objeto da classe survey.design ou svyrep.design. É altamente recomendável manter este parâmetro como TRUE para análise posterior. Se FALSE, apenas os microdados serão retornados.
+
+11) savedir: Diretório para salvar os dados baixados. O padrão é usar um diretório temporário.
+
+# Microdados trimestrais
+A importação dos microdados anuais através da função get_pnadc é muito simples. Basta indicar o ano e o trimestre dos dados desejados nos argumentos da função. Abaixo um exemplo de como importar os microdados do 1º trimestre de 2023:
+
+```{r}
+dadosPNADc <- get_pnadc(year = 2023, quarter = 1, 
+                        labels=TRUE, deflator=TRUE, 
+                        design=TRUE, savedir=tempdir())
+```
+```{r}
+# Liberar Memória
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+Por exemplo, um usuário que deseje trabalhar apenas com as variáveis de Condição em relação à força de trabalho (VD4001) e Condição de ocupação (VD4002) do 1º trimestre de 2023, pode utilizar o argumento "vars" parece selecionar apenas estas variáveis:
+
+```{r}
+dadosPNADc_brutos <- get_pnadc(year = 2023, quarter = 1, 
+                        labels=TRUE, deflator=TRUE, 
+                        design=FALSE, savedir=tempdir())
+```
+
+```{r}
+# Liberar Memória
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+```{r}
+# dadosPNADc <- get_pnadc(year = 2023, quarter = 1, 
+#                        vars=c("VD4001","VD4002"), labels=TRUE, 
+#                        deflator=TRUE, design=TRUE, savedir=tempdir())
+```
+
+Caso o usuário não queira trabalhar com este objeto, ele pode escolher a opção "design = FALSE" para baixar os microdados brutos:
+
+```{r}
+# dadosPNADc_brutos <- get_pnadc(year = 2023, quarter = 1, 
+#                               vars = c("VD4001", "VD4002"), 
+#                               design = FALSE)
+```
+
+Para baixar dados sem rótulo "labels = FALSE":
+
+```{r}
+#dadosPNADc_brutos_sem <- get_pnadc(year = 2023, quarter = 1, 
+#                                   vars = c("VD4001", "VD4002"), 
+#                                   design = FALSE, labels = FALSE)
+```
+
+# Microdados anuais
+
+Além dos microdados trimestrais, a função get_pnadc também permite a importação dos microdados anuais.
+```{r}
+dadosPNADc_anual <- get_pnadc(year = 2019, interview = 1)
+```
+
+## Exemplo de Análise de Dados com o Pacote Survey
+
+```{r}
+pnadc.svy <- get_pnadc(year=2023, quarter=1, 
+                       vars=c("VD4001","VD4002"), 
+                       defyear=2023, defperiod=1, 
+                       labels=TRUE, deflator=TRUE, 
+                       design=TRUE, savedir=tempdir())
+```
+
+## Cálculo da proporção de pessoas empregadas e desempregadas
+
+```{r}
+if (!is.null(pnadc.svy)) survey::svymean(x=~VD4002, 
+                                         design=pnadc.svy, na.rm=TRUE)
+```
+
+# Cálculo da média de horas dedicadas ao cuidado de pessoas ou tarefas domésticas
+
+```{r}
+pnadc.svy2 <- get_pnadc(year=2019, interview=1, 
+                        vars=c("V4112","V4121B"), 
+                        defyear=2023, 
+                        defperiod=1,labels=TRUE, 
+                        deflator=TRUE, design=TRUE, 
+                        savedir=tempdir())
+
+if (!is.null(pnadc.svy2)) survey::svymean(x=~V4121B, 
+                                          design=pnadc.svy2, na.rm=TRUE)
+```
+
+# Calculando proporção de telefone celular para uso pessoal com acesso à internet
+
+```{r}
+pnadc.svy3 <- get_pnadc(year=2019, topic=4, 
+                        vars=c("S07006","S07007"), defyear=2023, 
+                        defperiod=1, labels=TRUE, deflator=TRUE, 
+                        design=TRUE, savedir=tempdir())
+
+if (!is.null(pnadc.svy3)) survey::svymean(x=~S07007, 
+                                          design=pnadc.svy3, 
+                                          na.rm=TRUE)
+
+```
+
+NOTA: precisamos usar o til (~) na frente das variáveis, isso porque o pacote usa a sintaxe base R de atribuição de variáveis com base em fórmulas.
+
+# Análise com pacote survey
+
+O pacote survey é um pacote criado especificamente para análise e modelagem de dados provenientes de pesquisas com estes tipos de planos amostrais.
+
+Variável - Descrição
+
+UF - Unidade da Federação
+V2007 - Sexo
+V2009 - Idade do morador na data de referência
+V2010 - Cor ou raça
+V3007 - Já concluiu algum outro curso de graduação?
+VD3004 - Nível de instrução mais elevado alcançado (pessoas de 5 anos ou mais de idade)
+VD3005 - Anos de estudo (pessoas de 5 anos ou mais de idade) padronizado para o Ensino fundamental - SISTEMA DE 9 ANOS
+VD4001 - Condição em relação à força de trabalho na semana de referência para pessoas de 14 anos ou mais de idade
+VD4002 - Condição de ocupação na semana de referência para pessoas de 14 anos ou mais de idade
+VD4020 - Rendimento mensal efetivo de todos os trabalhos para pessoas de 14 anos ou mais de idade (apenas para pessoas que receberam em dinheiro, produtos ou mercadorias em qualquer trabalho)
+VD4035 - Horas efetivamente trabalhadas na semana de referência em todos os trabalhos para pessoas de 14 anos ou mais de idade
+
+
+# Estimando Totais
+A função do pacote para a estimação de totais populacionais é a svytotal. Sua sintaxe precisa de três parâmetros principais:
+
+1) O nome da variável que se deseja calcular o total, precedido por um ~;
+2) O nome do objeto do plano amostral;
+3) A opção na.rm = T, que remove as observações onde a variável é não-aplicável.
+
+
+Observação: o comando keep.names = FALSE - Evita a repetição dos labels das variáveis de forma duplicada.
+
+```{r}
+totalrenda <- svytotal(~VD4020, dadosPNADc, keep.names = FALSE, 
+                       na.rm = TRUE)
+totalrenda
+```
+
+Além da estimativa do total da renda efetiva, o comando também retorna o erro padrão (SE) dessa estimativa. A partir desse resultado, também é possível calcular coeficientes de variação e intervalos de confiança para a estimativa:
+
+CV = Desvio Padrão / Média
+
+```{r}
+cv(totalrenda)
+```
+
+Interpretação: VD4020 = 0.01752518 - Em média, os desvios atingem, em relação à média, 1,8% do valor desta.
+
+```{r}
+confint(totalrenda) #intervalo de confiança de 95% (padrão)
+confint(totalrenda, level= .99) #intervalo de confiança de 99%
+```
+
+# Variáveis Categóricas
+
+Também é possível estimar totais populacionais de categorias, utilizando variáveis categóricas, como o sexo:
+
+```{r}
+totalsexo <- svytotal(~V2007, dadosPNADc, na.rm = T)
+totalsexo
+```
+
+E estimar o total de mais de uma variável categórica no mesmo código, separando com o operador +:
+
+```{r}
+totalsexoraca <- svytotal(~V2007 + V2010, dadosPNADc, 
+                          keep.names = FALSE, na.rm = T)
+totalsexoraca
+```
+
+Também é possível estimar o total resultante do cruzamento de duas ou mais variáveis categóricas, com a função interaction:
+
+```{r}
+totalsexoEraca <- svytotal(~interaction(V2007, V2010), 
+                           dadosPNADc, na.rm = T)
+round(ftable(totalsexoEraca))
+```
+
+# Estimando Médias
+A média de uma variável numérica é estimada através da função svymean, que possui uma sintaxe idêntica à svytotal. O exemplo do total da renda efetiva pode ser facilmente reescrito para médias:
+
+```{r}
+#Rendimento mensal efetivo de todos os trabalhos
+mediarenda <- svymean(~VD4020, dadosPNADc, na.rm = T)
+
+#Rendimento mensal habitual do trabalho principal 
+mediarenda1 <- svymean(~VD4016, dadosPNADc, na.rm = T)
+mediarenda1
+
+#Rendimento mensal efetivo do trabalho principal
+mediarenda2 <- svymean(~VD4017, dadosPNADc, na.rm = T) 
+mediarenda2
+
+#Rendimento mensal habitual de todos os trabalhos
+mediarenda3 <- svymean(~VD4019, dadosPNADc, na.rm = T) 
+mediarenda3
+```
+
+# Estimando Proporções
+Utilizando variáveis categóricas, é possível estimar a frequência relativa de cada categoria. Isso pode ser feito também através da função svymean, com uma sintaxe análoga à utilizada para estimar os totais das categorias.
+
+```{r}
+propsexo <- svymean(~V2007, dadosPNADc, na.rm = T)
+propsexo
+```
+
+Da mesma forma, podemos estimar a proporção de mais de uma variável:
+
+```{r}
+propsexoraca <- svymean(~V2007 + V2010, dadosPNADc, keep.names = FALSE, na.rm = T)
+propsexoraca 
+```
+
+
+E estimando a proporção de um cruzamento de duas ou mais variáveis com a função interaction
+
+```{r}
+propsexoEraca <- svymean(~ interaction(V2007, V2010), dadosPNADc, na.rm = T)
+ftable(propsexoEraca)
+```
+
+# Estimando Razões
+Além das proporções, também é possível estimar razões entre duas variáveis. Um exemplo de razão é a taxa de desocupação divulgada pelo IBGE: ela é a razão entre o total de pessoas desocupadas pelo total de pessoas na força de trabalho. A função para estimar razões é a svyratio
+
+```{r}
+txdesocup <- svyratio(~VD4002 == "Pessoas desocupadas",
+                      ~VD4001 == "Pessoas na força de trabalho", 
+                      dadosPNADc, na.rm = T)
+txdesocup
+```
+
+
+```{r}
+cv(txdesocup)
+confint(txdesocup)
+
+confint(svymean(~VD4002,dadosPNADc, na.rm=T),level=.99)
+```
+
+# Estimando Medianas e Quantis
+Medianas e quantis de variáveis numéricas são estimados através da função svyquantile. Para calcular a mediana, basta utilizar quantiles = .5:
+
+```{r}
+medianarenda <- svyquantile(~VD4020, dadosPNADc, quantiles = .5, na.rm = T)
+medianarenda
+```
+
+A partir disto, podemos inferir que metade dos brasileiros que têm renda, possuem renda de até 1200 reais.
+
+Diferentemente das anteriores, a função svyquantile não retorna como default o erro padrão das estimativas.
+
+Para obtê-los, é necessário utilizar o parâmetro ci = TRUE
+
+```{r}
+medianarenda <- svyquantile(~VD4020, dadosPNADc, quantiles = .5, na.rm = T, ci = TRUE)
+medianarenda
+SE(medianarenda)
+cv(medianarenda)
+```
+
+Além disso, é possível calcular vários quantis simultaneamente, colocando um vetor na opção quantiles.
+
+```{r}
+quantisrenda <- svyquantile(~VD4020, dadosPNADc, quantiles = c(.1,.25,.5,.75,.9), na.rm = T)
+quantisrenda
+```
+
+# Análise para o Estado do Ceará - UF=="Ceará"
+
+## Taxa de desocupação por sexo - Ceará
+
+```{r}
+desoc_sexo_ce <- svyby(~V2007, ~VD4002, subset(dadosPNADc, UF == "Ceará"), svymean, na.rm = T)
+```
+
+## Rendimento médio mensal por sexo - Ceará
+
+```{r}
+rend_med_mensal_sexo_ce <- svyby(~VD4020, ~V2007, subset(dadosPNADc, UF == "Ceará"), svymean, na.rm = T)
+```
+
+## Distribuição de pessoas desocupadas por faixa etária
+```{r}
+dadosPNADc<-update(dadosPNADc, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+```
+
+```{r}
+desoc_idade_ce <- svyby(~Idade, ~VD4002, subset(dadosPNADc, UF == "Ceará"), svymean, na.rm = T)
+```
+
+## Rendimento médio mensal por faixa etária - Ceará
+
+```{r}
+rend_med_mensal_idade_ce <- svyby(~VD4020, ~Idade, subset(dadosPNADc, UF == "Ceará"), svymean, na.rm = T)
+```

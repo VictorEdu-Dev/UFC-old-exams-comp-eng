@@ -1,0 +1,247 @@
+---
+title: "MCA - AVALIAÇÃO PROGRESSIVA 2"
+authors: "Eduardo Santos  - 514554, Maria Rita Martins - 493387, Natanael Silveira - 500822 e Thiago Marques - 412645"
+date: "November 27, 2023"
+output: pdf_document
+---
+
+QUESTÃO 01
+
+```{r}
+# pacotes
+install.packages('reshape2')
+install.packages('tidyr')
+install.packages('dplyr')
+
+library(reshape2)
+library(tidyr)
+library(dplyr)
+
+# dataframe com os dados apresentados
+dados <- data.frame(
+  a = c(62, 60, 63, 59, 63, 59),
+  b = c(63, 67, 71, 64, 65, 66),
+  c = c(68, 66, 71, 67, 68, 68),
+  d = c(56, 62, 60, 61, 63, 64)
+)
+
+```
+
+
+```{r}
+# Transformar os dados usando tidyr
+dados_long <- dados %>%
+  gather(key = "grupo", value = "valor", a:d)
+
+# dados
+print(dados_long)
+```
+
+
+```{r}
+# análise de variância
+modelo_anova <- aov(valor ~ grupo, data = dados_long)
+
+# tabela ANOVA
+print(summary(modelo_anova))
+```
+
+```{r}
+# teste de Tukey para comparações múltiplas
+resultado_tukey <- TukeyHSD(modelo_anova)
+
+# resultado do teste
+print(resultado_tukey)
+
+```
+
+
+```{r}
+# Gráfico de caixa
+boxplot(valor ~ grupo, data = dados_long, main = "Boxplot por Grupo")
+```
+
+*a vs. b:*
+    Diferença média: 5.0
+    Intervalo de Confiança (IC): [1.176, 8.824]
+    Diferença significativa (p adj = 0.0078).
+
+*a vs. c:*
+    Diferença média: 7.0
+    IC: [3.176, 10.824]
+    Diferença significativa (p adj = 0.00028).
+
+*a vs. d:*
+    Diferença média: Praticamente zero
+    IC: [-3.824, 3.824]
+    Não há diferença significativa (p adj = 1.0).
+
+*b vs. c:*
+    Diferença média: 2.0
+    IC: [-1.824, 5.824]
+    Não há diferença significativa (p adj = 0.4766).
+
+*b vs. d:*
+    Diferença média: -5.0
+    IC: [-8.824, -1.176]
+    Diferença significativa (p adj = 0.0078).
+
+*c vs. d:*
+    Diferença média: -7.0
+    IC: [-10.824, -3.176]
+    Diferença significativa (p adj = 0.00028).
+
+Em resumo, há diferenças significativas nas médias entre os grupos a e b, a e c, b e d, e c e d. Não há diferença significativa entre a e d, nem entre b e c. Essas conclusões são baseadas nos intervalos de confiança e nos p-values ajustados obtidos pelo teste de Tukey, considerando um nível de confiança de 95%.
+
+
+
+### QUESTÃO 02
+
+Carregar pacotes e dados
+
+```{r}
+# Pacotes
+install.packages('wooldridge')
+library(wooldridge)
+
+# Carregar os dados contidos em wage1
+data("wage1")
+```
+
+Definindo variaveis
+
+```{r}
+educ <- wage1$educ
+wage <- wage1$wage
+female <- wage1$female
+```
+
+a) Encontrar o nivel médio de escolaridade na amostra
+
+```{r}
+mean_educ <- mean(educ)
+cat("O nivel médio de escolaridade na amostra é", round(mean_educ, 2), "anos.\n")
+```
+
+O p-value muito baixo fornece evidências significativas contra a hipótese nula de homocedasticidade (variância constante dos resíduos). Portanto, há indicações de heterocedasticidade nos resíduos do modelo.
+
+
+b) Quais são o maior e o menor número de anos de educação formal?
+
+```{r}
+max_educ <- max(educ)
+min_educ <- min(educ)
+cat("O maior número de anos de educação formal é", max_educ, "anos.\n")
+cat("O menor número de anos de educação formal é", min_educ, "anos.\n")
+```
+
+O p-value baixo sugere evidências significativas contra a hipótese nula de ausência de autocorrelação nos resíduos. Portanto, há indicações de autocorrelação positiva nos resíduos do modelo.
+
+
+c) Encontrar o salário médio por hora na amostra. Ele parece ser alto ou baixo?
+
+```{r}
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+mean_wage <- mean(wage)
+median_wage <- median(wage)
+cat("O salário médio por hora na amostra é", round(mean_wage, 2), "dólares.\n")
+cat("Comparando com a mediana que é ", round(median_wage, 2), "dólares, predizemos um valor médio.\n")
+print(getmode(wage))
+```
+
+d) Quantas mulheres estão na amostra? Quantos homens?
+
+```{r}
+n_female <- sum(female == 1)
+n_male <- sum(female == 0)
+cat("Há", n_female, "mulheres na amostra.\n")
+cat("Há", n_male, "homens na amostra.\n")
+```
+
+
+Valores do VIF abaixo de 5 geralmente indicam baixa multicolinearidade. No seu caso, todos os valores estão abaixo desse limite, sugerindo que a multicolinearidade pode não ser um problema significativo.
+
+
+
+### QUESTÃO 03
+
+
+```{r}
+# Carregar pacotes
+install.packages('lmtest')
+install.packages('faraway')
+library(wooldridge)
+require(faraway)
+library(lmtest)
+```
+
+
+```{r}
+# Carregar os dados meap93
+data(meap93)
+
+# Ajustar o modelo de regressão linear
+modelo <- lm(math10 ~ salary + staff + enroll, data = meap93)
+```
+
+
+```{r}
+# Plotar os resíduos versus os valores ajustados
+plot(modelo$residuals ~ modelo$fitted.values, xlab = "Valores ajustados", ylab = "Resíduos")
+
+```
+
+
+```{r}
+# Plotar o histograma dos resíduos
+hist(modelo$residuals, xlab = "Resíduos", main = "Histograma dos resíduos")
+```
+
+
+```{r}
+# Testar a normalidade dos resíduos
+shapiro.test(modelo$residuals)
+```
+
+
+```{r}
+# Carregar o pacote lmtest
+
+# Testar a heterocedasticidade dos resíduos
+bptest(modelo)
+
+# Testar a autocorrelação dos resíduos
+dwtest(modelo)
+
+# Testar a multicolinearidade das variáveis explicativas
+vif(modelo)
+
+```
+
+
+*3-A)*
+
+*Intercepto (Intercept):*
+O intercepto não é estatisticamente significativo (p-value = 0.944), indicando que, quando todas as variáveis são zero, a nota de matemática não é significativamente diferente de zero.
+
+*Coeficientes das Variáveis Independentes:*
+- salary: Coeficiente significativo (p-value muito baixo), sugerindo uma relação positiva entre os salários dos professores e as notas de matemática.
+- staff: Coeficiente não significativo (p-value = 0.182), indicando falta de evidência estatística para um efeito significativo nas notas.
+- enroll: Coeficiente não significativo (p-value = 0.240), indicando falta de evidência estatística para um efeito significativo nas notas.
+
+*Outros Resultados Importantes:*
+- Residual standard error: A dispersão média dos resíduos é 10.19.
+- R-squared: O modelo explica aproximadamente 6.37% da variação nas notas de matemática.
+- F-statistic: O modelo como um todo é estatisticamente significativo.
+
+*Conclusões:*
+Os salários dos professores têm um efeito significativo nas notas de matemática, enquanto o número de funcionários por mil alunos e o número de matrículas não mostram efeitos significativos.
+  
+
+*3-B)*
+
+O resultado da B indica que o coeficiente estimado para a variável staff é -0.1221, o que significa que, mantendo as outras variáveis constantes, um aumento de uma unidade no número de funcionários por mil alunos está associado a uma diminuição de 0.1221 pontos na nota média de matemática dos alunos. Esse resultado é estatisticamente significativo ao nível de 1%, pois o valor-p é menor que 0.01. Isso sugere que há uma relação negativa entre o tamanho do staff e a performance dos alunos, o que pode indicar que as escolas com mais funcionários têm menos eficiência ou qualidade na educação.
+

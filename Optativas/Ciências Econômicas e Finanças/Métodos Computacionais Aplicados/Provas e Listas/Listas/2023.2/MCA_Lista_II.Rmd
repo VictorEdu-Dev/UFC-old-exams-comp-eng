@@ -1,0 +1,225 @@
+---
+title: "MCA - LISTA DE EXERCÍCIOS II"
+authors: "Eduardo Santos de Castro - 514554 e Natanael Silveira de Melo - 500822"
+date: "November 27, 2023"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+### QUESTÃO 01. Utilize os pacotes "PNADcIBGE", "survey" e "dplyr" para importar e manipular os dados da PNAD Contínua, referentes ao primeiro trimestre de 2023. Em seguida, obtenha as informações a seguir:
+
+
+Importando bibliotecas
+
+```{r}
+library(PNADcIBGE)
+library(dplyr)
+library(survey)
+```
+
+
+Importando o Database
+
+```{r}
+my_vars = c('Ano','Trimestre','Capital','UF','V2007','V2009','V2010','VD4001','VD4002','VD4020')
+dadosPNADc = get_pnadc(year = 2023, quarter = 1,
+                       labels = TRUE, deflator = TRUE,
+                       design = TRUE, 
+                       vars = my_vars)
+```
+
+
+*(a) O percentual de pessoas ocupadas por sexo;*
+
+```{r}
+desoc_sexo <- svyby(~V2007, ~VD4002, dadosPNADc, svymean, na.rm = T)
+desoc_sexo
+```
+
+
+*(b) O rendimento médio mensal por sexo;*
+
+```{r}
+rend_med_mensal_sexo <- svyby(~VD4020, ~V2007, dadosPNADc, svymean, na.rm = T)
+rend_med_mensal_sexo
+```
+
+
+Separando o banco de dados por faixa etaria;
+
+```{r}
+dadosPNADc_idade <-update(dadosPNADc, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24",
+  V2009 %in% 25:39 ~ "25-39",
+  V2009 %in% 40:59 ~ "40-59",
+  V2009 > 59 ~ "60+")
+)
+```
+
+
+*(c) A distribuição de pessoas desocupadas por faixa etária (14 a 17 anos, 18 a 24 anos, 25 a 39 anos, 40 a 59 anos, 60 anos ou mais);*
+
+```{r}
+desoc_idade <- svyby(~Idade, ~VD4002, dadosPNADc_idade, svymean, na.rm = T)
+desoc_idade
+```
+
+
+*(d) O rendimento médio mensal por faixa etária;*
+
+```{r}
+rend_med_mensal_idade <- svyby(~VD4020, ~Idade, dadosPNADc_idade, svymean, na.rm = T)
+rend_med_mensal_idade
+```
+
+
+
+### QUESTÃO 02. Escreva uma função que some dois números e divida o resultado por 2.
+
+
+Definindo uma função chamada media
+
+```{r}
+media <- function(x, y) {
+  # Somar os dois números e dividir por 2
+  resultado <- (x + y) / 2
+  return(resultado)
+}
+```
+
+Atribuindo os valores e chamando a função
+
+```{r}
+x <- 10
+y <- 20
+
+media(x, y)
+```
+
+
+### QUESTÃO 03. As taxas de aluguel são influenciadas pela população de estudantes em uma cidade 
+onde há universidades? Seja _rent_ aluguel médio mensal pago pela unidade alugada em uma 
+determinada cidade, onde há universidades. Seja _pop_ total da população da cidade, _avginc_, renda 
+média da cidade e _pctstu_ população de estudantes como um percentual da população total. Um 
+modelo para testar uma relação é:
+
+```{=latex}
+\begin{tabular}{ll}
+\log({rent}) = \beta_{0}  + \beta_{1} \log({pop}) + \beta_{2} \log({avginc}) + \beta_{3} {pctstu} + u
+\end{tabular}
+```
+
+*a) Quais sinais você espera para beta1 e beta2?*
+
+Para o beta1, se vê um sinal positivo, já que um aumento na população geral pode gerar uma demanda maior por moradias, o que, por sua vez, poderia elevar os preços dos aluguéis. Da mesma forma, espero um sinal positivo para o beta2, pois um aumento na renda média normalmente implica uma maior capacidade de pagar aluguéis mais caros, potencialmente aumentando os preços dos aluguéis.
+
+
+  
+*b) Estime o modelo acima, a partir da base de dados de 1990 de 64 cidades com universidades do arquivo RENTAL.dta (Stata).*
+
+```{r}
+library(haven)
+RENTAL <- read_dta("./RENTAL.DTA")
+View(RENTAL)
+Aluguéis<-lm(lrent~lpop+lavginc+pctstu,data=RENTAL)
+summary(Aluguéis)
+```
+
+
+
+*c)Interprete os resultados estimados (Significância global, individual, R^2 e coerência dos sinais).*
+
+
+Apenas a renda média e o percentual de estudantes em relação à população total mostraram ser estatisticamente significativos, com um nível de significância de 5%. Um aumento de 1% na população total resultará em um aumento de 0,031346% nas taxas de aluguel. Da mesma forma, um aumento de 1% na renda média resultará em um aumento de 0,877139% nas taxas de aluguel, enquanto um aumento de 1% no percentual de estudantes em relação à população total resultará em um aumento de 0,006585% nas taxas de aluguel. Os sinais das variáveis significativas são coerentes, já que um aumento na população gera uma maior demanda por moradias, elevando os aluguéis, e um aumento na renda média implica maior capacidade de pagamento, o que também resulta em um aumento nas taxas.
+No teste de significância global, a hipótese nula é que o modelo apenas com o intercepto é igual ao modelo estimado. O p-valor < 0,05 nos leva a rejeitar essa hipótese, indicando que o modelo estimado se ajusta melhor. já no teste individual, apenas a variável "lpop" não é estatisticamente superior a 5%.
+
+Sendo assim, o aumento de 1% na variável de renda está associado a um incremento positivo de 0,877139% nos aluguéis, enquanto um acréscimo de 1% na porcentagem de estudantes resulta em um aumento positivo de 0,006585% nos aluguéis. Esses padrões refletem uma coerência: o crescimento na população gera maior demanda por moradias, elevando os preços dos aluguéis. Da mesma forma, um aumento na renda média implica maior capacidade de pagamento dos aluguéis, também contribuindo para o aumento das taxas.
+
+
+*d) O que está errado com a seguinte afirmação: “Um aumento de 10% na população está associado a um aumento de cerca de 6,6% no aluguel”?*
+
+A variável "lpop" é estatisticamente insignificante no modelo, portanto, não é apropriado interpretar suas estimativas como uma relação direta entre aumento percentual na população e no aluguel.
+
+
+*e) O modelo é globalmente ajustado? Justifique.*
+
+Sim, de acordo com o teste F de significância global a 5%, rejeitamos a hipótese nula, evidenciando que o modelo é globalmente significativo.
+
+
+
+### QUESTÃO 04. O arquivo nerlove.xlsx contém dados sobre os custos de produção, quantidade 
+produzida e insumos para 145 empresas de energia elétrica. Os dados são para os EUA e foram 
+coletados por M. Nerlove. As observações estão na linha, e nas colunas estão as variáveis: CUSTO 
+(TC), PRODUTO (Q), PREÇO DO TRABALHO (PL), PREÇO DO COMBUSTÍVEL (PF) e 
+PREÇO DO CAPITAL (PK) das companhias. Observe que os dados são classificados por nível de 
+produto (a segunda coluna). Estime o modelo Cobb-Douglas:
+
+```{=latex}
+\begin{tabular}{ll}
+\ln({TC}) = \beta_{1}  + \beta_{2} \ln({Q}) + \beta_{3} \ln({PL})+ \beta_{4} \ln({PF}) + \beta_{5} \ln({PK}) + \epsilon
+\end{tabular}
+```
+
+Observação: Use o Rstudio para importar a base de dados. Em seguida criar as variáveis em logaritmo 
+e acrescentar ao dataframe original para, em seguida, realizar a estimação.
+
+Responda: 
+
+*(a) Interprete os resultados obtidos (Significância global, individual,  # e coerência dos sinais).*
+
+
+*(b) O modelo é globalmente ajustado? Justifique.*
+
+
+*(c) Use o pacote rgl para esboçar um Gráfico 3D com as variáveis PREÇO DO CAPITAL (PK), PREÇO DO TRABALHO (PL) e PREÇO DO COMBUSTÍVEL (PF).*
+
+
+*(d) Analise a coerência dos sinais dos estimadores.*
+
+
+### QUESTÃO 05. A análise de regressão pode ser usada para testar se o mercado usa eficientemente 
+as informações ao avaliar ações. Seja _return_ o retorno total de possuir ações de uma empresa ao 
+longo de um período de quatro anos, do final de 1990 até o final de 1994. A hipótese dos mercados 
+eficientes diz que esses retornos não devem estar sistematicamente relacionados à informação 
+conhecida em 1990. Se as características conhecidas da empresa no início do período ajudassem a 
+prever os retornos das ações, poderíamos usar essas informações para escolher ações.
+
+Para 1990, seja _dlkr_ a relação dívida-capital de uma empresa, seja _eps_ os ganhos por ação, seja _netinc_ a renda líquida e seja _salary_ remuneração total dos CEOs da empresa.
+
+*(a) Usando os dados do arquivo RETURN.dta, estime e interprete o modelo:*
+
+```{r}
+library(haven)
+RETURN <- read_dta("./RETURN.DTA")
+View(RETURN)
+Ações<-lm(return~dkr+eps+netinc+salary,data=RETURN)
+summary(Ações)
+```
+
+Ao analisar o teste de significância global com p > 0,05, não se rejeita a hipótese nula, indicando que o modelo não apresenta significância global. Em um nível de 5%, todas as estimativas individuais são estatisticamente insignificantes para a regressão analisada. O coeficiente de determinação ajustado mostra que o modelo foi capaz de explicar apenas 3% das variações em torno da média.
+
+
+*(b) As variáveis explicativas são conjuntamente significantes ao nível de 5%? Alguma variável  explicativa é individualmente significante?*
+
+A partir da análise do teste F de significância global, não houve rejeição da hipótese nula (p-valor > 0,05), indicando insignificância global do modelo. Além disso, no teste individual, todas as variáveis explicativas foram estatisticamente insignificantes para o modelo.
+
+
+*(c) Agora estime o modelo anterior usando a forma log para _netinc_ e _salary_:*
+
+```{r}
+Ações2<-lm(return~dkr+eps+lnetinc+lsalary,data=RETURN)
+summary(Ações2)
+```
+
+*Alguma de suas conclusões no item (a) mudou?*
+
+Quando aplicamos a forma log para "netinc" e "salary", o modelo manteve sua insignificância global, mantendo todas as estimativas estatisticamente insignificantes.
+
+
+*(d) Em geral, a evidência da previsibilidade dos retornos é forte ou fraca?*
+
+A evidência de previsibilidade dos retornos é fraca, uma vez que o conjunto de informações disponíveis no momento "t" consiste principalmente em informações relacionadas a preços e retornos passados.
+
+

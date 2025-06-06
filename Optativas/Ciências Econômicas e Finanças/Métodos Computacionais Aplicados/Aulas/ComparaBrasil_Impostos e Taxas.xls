@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#FFFFFF"
+    ss:Bold="1"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+      <Interior ss:Color="#0076a3" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="CapitaisInt">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#6dcff6"
+    ss:Bold="1"/>
+   <NumberFormat ss:Format="Standard"/>
+  </Style>
+  <Style ss:ID="CapitaisNumerico">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#6dcff6"
+    ss:Bold="1"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="PadraoInteiro">
+   <NumberFormat ss:Format="Standard"/>
+  </Style>
+  <Style ss:ID="PadraoNumerico">
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="s63">
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s64"><Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#FF0000"/></Style>
+ </Styles>
+
+<Worksheet ss:Name="Sheet1">
+<Table><Column ss:Index="1" ss:Width="203"/>
+<Column ss:Index="2" ss:Width="70"/>
+<Column ss:Index="3" ss:Width="70"/>
+<Column ss:Index="4" ss:Width="70"/>
+<Column ss:Index="5" ss:Width="70"/>
+<Column ss:Index="6" ss:Width="70"/>
+<Column ss:Index="7" ss:Width="70"/>
+<Column ss:Index="8" ss:Width="70"/>
+<Column ss:Index="9" ss:Width="70"/>
+<Column ss:Index="10" ss:Width="70"/>
+<Column ss:Index="11" ss:Width="70"/>
+<Column ss:Index="12" ss:Width="70"/>
+<Column ss:Index="13" ss:Width="70"/>
+<Column ss:Index="14" ss:Width="70"/>
+<Column ss:Index="15" ss:Width="70"/>
+<Column ss:Index="16" ss:Width="70"/>
+<Column ss:Index="17" ss:Width="70"/>
+<Column ss:Index="18" ss:Width="50"/>
+
+<Row><Cell><Data ss:Type="String">Sobral</Data></Cell></Row>
+<Row><Cell><Data ss:Type="String">Impostos e Taxas</Data></Cell></Row>
+<Row><Cell><Data ss:Type="String">Em  reais - IPCA médio de 2022</Data></Cell></Row>
+<Row><Cell ss:StyleID="s62"><Data ss:Type="String">item</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2002</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2003</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2004</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2005</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2006</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2007</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2008</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2009</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2010</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2011</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2012</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2013</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2014</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2015</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2016</Data></Cell><Cell ss:StyleID="s62"><Data ss:Type="String">2017</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">IPTU</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4185943.458515</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4065813.063216</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3920942.955788</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3328206.509156</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3972637.817585</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3942167.54152798</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5007817.74856005</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4664093.23635864</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4950542.61734661</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">6435155.99624144</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">6290365.243566</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">11259578.3891895</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">8236909.37942964</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">9332376.6360169</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">11766588.1454947</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">IRRF</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5026331.904176</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5916174.418312</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5631998.70736557</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4288669.26207256</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">6144338.20496226</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">7102432.69690125</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">9330081.109859</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">10229543.1771696</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">9909879.5815908</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">12132842.4243005</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">11428862.473273</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">12076396.3664073</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">12766866.4315712</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">ITBI</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">551082.39961864</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">624233.314368</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">805896.530412</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1131131.462578</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1893303.06670777</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1439105.03894154</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1723274.82655614</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">2438840.78930718</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3151254.05945889</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4136143.11616584</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4097536.3955998</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5227926.9971895</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4352276.23146459</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3856605.0318152</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4368468.1292409</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">ISS</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">7503843.58567722</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5947896.010032</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">8689593.357184</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">10983393.860904</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">10916042.2335001</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">15264402.2131768</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">16150549.0734681</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">20322276.6723799</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">22184443.222829</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">29100502.1116076</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">26666251.7059602</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">28200429.2027039</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">29461017.7153434</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">27306744.2488917</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">29023888.2229714</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">Taxas - Poder de Polícia</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">667569.62368842</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">803459.227968</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">830800.659872</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1355132.597862</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1797721.49152405</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1308528.08630796</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1534506.96395133</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1392355.65060831</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1286313.74373513</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1979266.12190879</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">2238047.2203864</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">2327056.24775796</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">2321600.93330373</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">2236530.65785376</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3006550.74413334</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">Taxas - Prestação de Serviços</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1687273.70437098</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1040467.927536</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">1099740.532484</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3797236.490888</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3853676.85691189</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4420262.67448812</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">2930335.56519054</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5566012.76117469</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5203661.83460122</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4913730.39770886</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5090531.5106662</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4969422.11451906</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">3468643.13997045</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">5487470.71746174</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">4791086.80118724</Data></Cell></Row>
+<Row><Cell ><Data ss:Type="String">Contribuição de Melhoria</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">178.99192224</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell><Cell ss:StyleID="PadraoInteiro" ><Data ss:Type="Number">0</Data></Cell></Row>
+</Table>
+</Worksheet>\r\n</Workbook>

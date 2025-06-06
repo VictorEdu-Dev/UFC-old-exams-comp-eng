@@ -1,0 +1,334 @@
+---
+title: Aula 13_MCA -  Probabilidade e Distribuições. Amostragem Aleatória. Cálculo
+  de Probabilidade e Combinatória. Distribuições Discretas e Contínuas.Estatística
+  Descritiva e Gráficos. Resumo Estatístico para um Único Grupo. Representação Gráfica
+  de Distribuições. Histogramas. Q-Q plot. Boxplot. Resumo Estatístico por Grupos.
+  Gráfico para Dados Agrupados.Testes para uma ou duas Amostras. Teste t para uma
+  Amostra. Teste t para duas Amostras.
+author: "Prof. Weligton Gomes"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Probabilidade e Distribuições
+
+## Amostragem Aleatória
+
+```{r}
+sample(1:40, 5)
+sample(c ("H", "T"), 10, replace = T) #H = Heads e T = Tails
+sample(c("succ", "fail"), 10, replace=T, prob=c(0.9, 0.1))
+```
+
+## Cálculos de probabilidade e combinatória
+```{r}
+1/prod(40:36)
+prod(5:1)/prod(40:36)
+1/choose(40,5)
+
+# Mega-Sena
+1/choose(60,6)
+```
+
+# Distribuição estatística:
+##  Densidade ou probabilidade de ponto
+dnorm - A função dnorm retorna o valor da função de densidade de probabilidade para os parâmetros dados de distribuição normal para $x$, $\mu$ e $\sigma$, $P(X=x)$;
+
+pnorm dá a função de distribuição acumulada (cdf), ou seja, a função pnorm retorna a integral de $-\infty$ para q da fdp da distribuição normal, $P(X\leq x)$;
+
+qnorm - a função qnorm é simplesmente o inverso da cdf, que você também pode pensar como o inverso de pnorm! Qual é o z-score do 50º quantil da distribuição normal? $qnorm(0.5) = 0$,
+
+Nas estatísticas, um escore-z (ou escore padrão) de uma observação é o número de desvios padrão acima ou abaixo da média da população.
+
+A probabilidade de uma variável aleatória contínua é definida pela área abaixo de uma função positiva,denominada densidade de probabilidade. A densidade em si, não é uma probabilidade, mas uma função matemática que auxilia na atribuição de probabilidades
+
+```{r}
+x <- seq(-4,4,0.1)
+plot(x,dnorm(x),type="l") # onde "l" -> linha, 
+curve(dnorm(x), from=-4, to=4)
+```
+
+# Probabilidade acumulada, função de distribuição
+
+A função de distribuição cumulativa descreve a probabilidade de “acertar” x ou menos em uma determinada distribuição. As funções no R correspondentes começam com um 'p' (para probabilidade) por convenção. Digamos que é sabido que alguma medida bioquímica em indivíduos saudáveis é bem descrita por uma distribuição normal com uma média de $132$ e um desvio padrão de $13$. Então, se um paciente tem um valor de $160$, há:
+
+```{r}
+pnorm(160, mean=132,sd=13)
+
+1-pnorm(160, mean=132,sd=13)
+```
+
+Cerca de 1,5% da população geral, que tem esse valor ou superior.
+
+A função pnorm retorna a probabilidade de obter um valor menor do que seu primeiro argumento em uma distribuição normal com a média e o desvio padrão fornecidos.
+
+# Estatística Descritiva
+
+mean(x)
+sd(x)
+var(x)
+median(x)
+
+## Histograma
+```{r}
+hist(x)
+```
+
+
+Dividindo as barrar por faixas etárias de $0–4$, $5–9$, $10–15$, $16-17$, $18–19$, $20–24$, $25–59$ e $60–79$ anos de idade. Os dados podem ser inseridos da seguinte forma:
+
+```{r}
+mid.age <- c(2.5,7.5,13,16.5,17.5,19,22.5,44.5,70.5)
+acc.count <- c(28,46,58,20,31,64,149,316,103)
+age.acc <- rep(mid.age,acc.count)
+
+brk <- c(0,5,10,16,17,18,20,25,60,80)
+hist(age.acc,breaks=brk)
+hist(age.acc,breaks = c(0,5,10,16,17,18,20,25,60,80))
+```
+
+
+# Boxplot
+```{r}
+library(ISwR)
+attach(energy)
+```
+
+```{r}
+expend.lean <- expend[stature=="lean"]
+expend.obese <- expend[stature=="obese"]
+```
+
+
+#Aplicar a função par () no R normal, pois RStudio com erro.
+```{r}
+par(mfrow=c(2,1))
+hist(expend.lean,breaks=10,xlim=c(5,13),ylim=c(0,4),col="white") 
+hist(expend.obese,breaks=10,xlim=c(5,13),ylim=c(0,4),col="grey") 
+par(mfrow=c(1,1))
+
+boxplot(expend ~ stature)
+```
+
+
+# Gráfico Q-Q plot: 
+
+Um propósito de calcular a função de distribuição cumulativa empírica (c.d.f.) é ver se os dados podem ser considerados normalmente distribuídos.
+
+```{r}
+qqnorm(x)
+qqnorm(x, pch = 1, frame = TRUE) #produz um gráfico QQ  normal da variável 
+qqline(x, col = "steelblue", lwd = 2) #Linha de referência
+```
+
+# Resumo Estatístico com o Summary( )
+```{r}
+attach(juul)
+View(juul)
+```
+
+age um vetor numérico (anos);
+menarche é um vetor numérico. Ocorreu menarca (código 1: não, 2: sim)?
+sex um vetor numérico (1: menino, 2: menina);
+igf1 um vetor numérico, fator de crescimento semelhante à insulina $(\mu g/l)$;
+tanner um vetor numérico, códigos 1–5: Estágios da puberdade ad modum Tanner.
+testvol um vetor numérico, volume testicular (ml).
+
+
+```{r}
+summary(igf1)
+summary(juul)
+```
+
+# Exemplos com tapply()
+
+A função tapply é utilizada para aplicar um procedimento a diferentes partes dos dados dentro de um array, matriz ou data frame.
+
+Exemplo: 
+
+```{r}
+attach(juul)
+tapply(igf1, tanner, mean) # Note que a presença de NA não permite o cálculo da média.
+tapply(igf1, tanner, mean, na.rm=T)
+aggregate(juul[c("age","igf1")], juul["sex"], mean, na.rm=T)
+by(juul, juul["sex"], summary)
+```
+
+
+# Tabelas
+## 1)
+```{r}
+table(sex)
+table(sex,menarche)
+table(menarche,tanner)
+```
+
+```{r}
+tanner.sex <- table(tanner,sex)
+tanner.sex
+margin.table(tanner.sex,1) # 1 e 2 é o número do índice que representa a linha (1) ou a coluna (2). É um parâmetro obrigatório.
+margin.table(tanner.sex,2)
+```
+
+
+```{r}
+prop.table(tanner.sex,1) # Frequências relativas em uma tabela são geralmente expressas como proporções dos totais da linha (1) ou coluna (2).
+
+prop.table(tanner.sex,2)
+```
+
+
+# 2)
+```{r}
+caff.marital <- matrix(c(652,1537,598,242,36,46,38,21,218,327,106,67), nrow=3,byrow=T)
+caff.marital
+
+colnames(caff.marital) <- c("0","1-150","151-300",">300")
+rownames(caff.marital) <- c("Married","Prev.married","Single")
+caff.marital
+
+names(dimnames(caff.marital)) <- c("marital","consumption")
+caff.marital
+
+total.caff <- margin.table(caff.marital,2)
+total.caff
+```
+
+
+# Barplot
+```{r}
+barplot(total.caff, col="white")
+barplot(caff.marital, col="white")
+barplot(t(caff.marital), col="white")
+barplot(t(caff.marital), col="white", beside=T) #beside = T - Se você quiser colocar as contribuições das linhas lado a lado
+barplot(prop.table(t(caff.marital),2), col="white", beside=T)
+barplot(prop.table(t(caff.marital),2),beside=T,
+        legend.text=colnames(caff.marital),
+        col=c("white","grey80","grey50","black"))
+```
+
+# Gráfico de pizza
+```{r}
+pie(table(sex))
+```
+
+# Função similar ao table
+```{r}
+xtabs(~ tanner + sex, data=juul)
+
+ftable(coma + diab ~ dgn, data=stroke)
+```
+
+# Frequência absoluta e Relativa
+## Análise Descritiva Univariada: Variáveis Qualitativas
+
+```{r}
+sex_prop <- table(sex)
+sexo.tbp <- prop.table(sex_prop) # Dá os valores em cada célula divididos pela soma total:
+
+#install.packages("fields")
+require(fields)
+
+tab<- cbind(stats(age), stats(sex))
+colnames(tab)<- c("Idade","Sexo")
+round(tab,2)
+```
+
+# Análise Descritiva Bivariada: Quantitativa x Qualitativa
+
+```{r}
+par(mfrow=c(1,1))
+boxplot(age ~ sex, col="seagreen4", xlab="sex", ylab="age")
+
+plot(age, testvol, pch=20, col="red")
+abline(lm(testvol ~ age), col="blue") #Linha de regressão linear
+```
+
+# Comparação de Variância. Teste t Emparelhado.
+
+```{r}
+daily.intake <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+
+length(daily.intake)
+mean(daily.intake)
+sd(daily.intake)
+quantile(daily.intake)
+summary(daily.intake)
+```
+
+Os testes t são baseados na suposição de que os dados vêm da distribuição normal. No caso de uma amostra, temos, portanto, os dados $x_1, \ldots, x_n$ assumidos como realizações independentes de variáveis aleatórias com distribuição $N (\mu, \sigma^2)$, o que denota a distribuição normal com média $\mu$ e variância $\sigma^2$, e nós deseja testar a hipótese nula de que $\mu = \mu_0$. Podemos estimar os parâmetros $\mu$ e $\sigma$ pela média empírica $\bar{x}$ e desvio padrão $s$, embora devamos perceber que nunca poderíamos localizar seus valores com exatidão.
+
+Você pode querer investigar se a ingestão de energia das mulheres se desvia sistematicamente de um valor recomendado de $7725 kJ$. Assumindo que os dados vêm de uma distribuição normal, o objetivo é testar se essa distribuição pode ter média $\mu = 7725$. Isso é feito com t.test da seguinte maneira:
+
+```{r}
+t.test(daily.intake, mu=7725)
+```
+
+Os testes t são bastante robustos contra desvios da distribuição normal, especialmente em amostras maiores, mas às vezes você deseja evitar fazer essa suposição. Para este fim, os métodos livres de distribuição são convenientes.
+
+# Teste de Wilcoxon (Teste não paramétrico)
+
+É um método livre de distribuição. O teste de classificação sinalizada de Wilcoxon para uma amostra é uma alternativa não paramétrica ao teste t para uma amostra quando os dados não podem ser considerados como normalmente distribuídos. É usado para determinar se a mediana da amostra é igual a um valor padrão conhecido (ou seja, um valor teórico).
+
+```{r}
+wilcox.test(daily.intake, mu=7725, alternative = "two.sided")
+```
+
+A hipótese nula é que as distribuições são as mesmas e, portanto, têm a mesma mediana. A alternativa é bilateral. A hipótese alternativa é que o deslocamento da posição verdadeira não é igual a zero, a distribuição de uma população é deslocada para a esquerda ou para a direita da outra”, o que implica diferentes medianas); alternative = "two.sided",  "greater" ou "less".
+
+# Teste para duas amostras (Dados Agrupados)
+
+O teste t de duas amostras é usado para testar a hipótese de que duas amostras podem vir de distribuições com a mesma média.
+
+```{r}
+attach(energy)
+#View(energy)
+
+t.test(expend~stature)
+```
+
+Mesmo que seja possível em R realizar o teste t de duas amostras sem a suposição de que as variâncias são as mesmas, você ainda pode estar interessado em testar essa suposição, e R fornece a função var.test para esse fim, implementando um F teste sobre a razão das variâncias do grupo. É chamado da mesma forma que t.test:
+
+# Comparação de variâncias
+
+```{r}
+var.test(expend~stature)
+t.test(expend~stature, var.equal=TRUE) # No caso de as variâncias entre os grupos serem as mesmas.
+```
+
+# Teste de Wilcoxon para duas amostras: 
+
+É aplicado em situações em que se tem um par de amostras independentes e se quer testar se as populações que deram origem a essas amostras podem ser consideradas semelhantes ou não.
+
+Usando o Wilcoxon Signed-Rank Test, podemos decidir se as distribuições de população de dados correspondentes são idênticas, sem supor que seguem a distribuição normal.
+
+Para realizar o teste de Wilcoxon de duas amostras, comparando as médias de duas amostras independentes (x e y), a função R wilcox.test ().
+
+A hipótese nula é que as distribuições são as mesmas e, portanto, têm a mesma mediana.
+
+```{r}
+wilcox.test(expend~stature)
+```
+
+Note que p-value = 0.002122. Assim, ao nível de significância de 5%, rejeitamos H0 e concluimos que as diferenças entre os grupos são estatisticamente significativas.
+
+# Teste t pareado
+```{r}
+attach(intake)
+intake
+
+post - pre
+t.test(pre, post, paired=T)
+```
+
+# O teste de Wilcoxon de pares combinados
+```{r}
+wilcox.test(pre, post, paired=TRUE)
+```

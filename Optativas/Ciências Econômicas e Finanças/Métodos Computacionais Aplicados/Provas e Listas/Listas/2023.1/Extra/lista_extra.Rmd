@@ -1,0 +1,254 @@
+---
+title: "Lista_extra"
+author: "Eraldo Caetano"
+date: "2023-06-25"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(PNADcIBGE)
+library(survey)
+library(dplyr)
+library(haven)
+library(lmtest)
+library(rgl)
+library(faraway)
+library(readxl)
+library(ggplot2)
+```
+
+# Brasil 2022
+
+## a)
+Fazendo a importação dos dados PNAD no site do IBGE
+
+
+```{r}
+variaveis_selecionadasPNAD <- c("UF", "V2007", "V2009", "VD4002", "VD4020")
+dadosPNADc2022.1 <- get_pnadc(year = 2022, quarter = 1, vars = variaveis_selecionadasPNAD)
+dados2022.1 <- dadosPNADc2022.1$variables
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+```{r}
+oc_sexo2022.1 <- svyby(~V2007, ~VD4002, dadosPNADc2022.1, svymean, na.rm = T)
+oc_sexo2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+```{r}
+pessoasoc = as.data.frame.matrix(oc_sexo2022.1$V2007Homem,oc_sexo2022.1$V2007Mulher)
+pessoasoc
+barplot(pessoasoc, col="white")
+```
+
+
+
+```{r}
+
+brasil_22 <- as.data.frame(dadosPNADc2022.1)
+
+# Brasil 2022 - Taxa de desocupação por sexo
+brasil_2022_desocupacao_sexo <- aggregate(VD4002 ~ V2007, data = brasil_22, FUN = function(x) sum(x == 2) / length(x) * 100)
+
+# Renomeando as colunas
+colnames(brasil_2022_desocupacao_sexo) <- c("Sexo", "Taxa_Desocupacao")
+
+# Definindo os labels para o sexo
+brasil_2022_desocupacao_sexo$Sexo <- factor(brasil_2022_desocupacao_sexo$Sexo,
+                                           levels = c(1, 2),
+                                           labels = c("Masculino", "Feminino"))
+
+# Gráfico de barras
+ggplot(brasil_2022_desocupacao_sexo, aes(x = Sexo, y = Taxa_Desocupacao, fill = Sexo)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Taxa de Desocupação por Sexo - Brasil 2022",
+       x = "Sexo",
+       y = "Taxa de Desocupação (%)") +
+  theme_minimal()
+
+
+```
+
+
+
+
+## b) O rendimento médio mensal por sexo:
+
+```{r}
+rend_med_mensal_sexo2022.1 <- svyby(~VD4020, ~V2007, dadosPNADc2022.1, svymean, na.rm = T)
+rend_med_mensal_sexo2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## c) A distribuição de pessoas desocupadas por faixa etária (14 a 17 anos, 18 a 24 anos, 25 a 39 anos, 40 a 59 anos, 60 anos ou mais):
+
+```{r}
+dadosPNADc2022.1 <-update(dadosPNADc2022.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+desoc_idade2022.1 <- svyby(~Idade, ~VD4002, dadosPNADc2022.1, svymean, na.rm = T)
+desoc_idade2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## d) O rendimento médio mensal por faixa etária:
+
+```{r}
+rend_med_mensal_idade2022.1 <- svyby(~VD4020, ~Idade, dadosPNADc2022.1, svymean, na.rm = T)
+rend_med_mensal_idade2022.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+
+
+# Brasil 2023
+
+Fazendo a importação dos dados PNAD no site do IBGE
+```{r}
+variaveis_selecionadasPNAD <- c("UF", "V2007", "V2009", "VD4002", "VD4020")
+dadosPNADc2023.1 <- get_pnadc(year = 2023, quarter = 1, vars = variaveis_selecionadasPNAD)
+dados2023.1 <- dadosPNADc2023.1$variables
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+```{r}
+oc_sexo2023.1 <- svyby(~V2007, ~VD4002, dadosPNADc2023.1, svymean, na.rm = T)
+oc_sexo2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## b) O rendimento médio mensal por sexo:
+
+```{r}
+rend_med_mensal_sexo2023.1 <- svyby(~VD4020, ~V2007, dadosPNADc2023.1, svymean, na.rm = T)
+rend_med_mensal_sexo2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## c) A distribuição de pessoas desocupadas por faixa etária (14 a 17 anos, 18 a 24 anos, 25 a 39 anos, 40 a 59 anos, 60 anos ou mais):
+
+```{r}
+dadosPNADc2023.1 <-update(dadosPNADc2023.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+desoc_idade2023.1 <- svyby(~Idade, ~VD4002, dadosPNADc2023.1, svymean, na.rm = T)
+desoc_idade2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## d) O rendimento médio mensal por faixa etária:
+
+```{r}
+rend_med_mensal_idade2023.1 <- svyby(~VD4020, ~Idade, dadosPNADc2023.1, svymean, na.rm = T)
+rend_med_mensal_idade2023.1
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+
+# Ceará 2022
+
+## Análise para o Estado do Ceará - UF=="Ceará"
+
+## Taxa de desocupação por sexo - Ceará
+
+```{r}
+desoc_sexo_ce2022 <- svyby(~V2007, ~VD4002, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_sexo_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por sexo - Ceará
+
+```{r}
+rend_med_mensal_sexo_ce2022 <- svyby(~VD4020, ~V2007, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_sexo_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Distribuição de pessoas desocupadas por faixa etária
+```{r}
+dadosPNADc2022.1 <- update(dadosPNADc2022.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+
+desoc_idade_ce2022 <- svyby(~Idade, ~VD4002, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_idade_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por faixa etária - Ceará
+
+```{r}
+rend_med_mensal_idade_ce2022 <- svyby(~VD4020, ~Idade, subset(dadosPNADc2022.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_idade_ce2022
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+
+# Ceará 2023
+
+## Análise para o Estado do Ceará - UF=="Ceará"
+
+## Taxa de desocupação por sexo - Ceará
+
+```{r}
+desoc_sexo_ce2023 <- svyby(~V2007, ~VD4002, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_sexo_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por sexo - Ceará
+
+```{r}
+rend_med_mensal_sexo_ce2023 <- svyby(~VD4020, ~V2007, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_sexo_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Distribuição de pessoas desocupadas por faixa etária
+```{r}
+dadosPNADc2023.1<-update(dadosPNADc2023.1, Idade = case_when(
+  V2009 %in% 14:17 ~ "14-17",
+  V2009 %in% 18:24 ~ "18-24", 
+  V2009 %in% 25:39 ~ "25-39", 
+  V2009 %in% 40:59 ~ "40-59", 
+  V2009 > 59 ~ "60+")
+)
+
+desoc_idade_ce2023 <- svyby(~Idade, ~VD4002, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+desoc_idade_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+## Rendimento médio mensal por faixa etária - Ceará
+
+```{r}
+rend_med_mensal_idade_ce2023 <- svyby(~VD4020, ~Idade, subset(dadosPNADc2023.1, UF == "Ceará"), svymean, na.rm = T)
+rend_med_mensal_idade_ce2023
+gc(verbose=FALSE, reset=FALSE, full=TRUE)
+```
+
+

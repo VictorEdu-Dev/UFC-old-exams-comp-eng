@@ -1,0 +1,304 @@
+---
+title: "Universidade Federal do Ceará (UFC/Sobral)"
+subtitle: "Aula 06 - Métodos Computacionais Aplicados"
+author: "Prof. Weligton Gomes"
+date: "24/04/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISwR)
+
+data(energy)
+data(thuesen)
+```
+
+## Script do R
+
+Você pode trabalhar com uma janela de editor de script, que permite enviar uma ou mais linhas do script para  execução R, que então se comportará como se as mesmas linhas tivessem sido inseridas no prompt.
+
+## Attach () e detach()
+
+Quando necesssitamos fazer muitas referências para um objeto, podemos minimizar a digitação, colocando o data.frame ou lista no caminho de procura, através do comando attach().
+
+Antes de começar outra análise com outros dados, não esqueça de usar a função detach() para retirar o objeto do caminho de procura.
+
+Por exemplo:
+
+```{r}
+energy$stature
+
+attach(energy)
+expend
+detach(energy)
+
+#energy2<-edit(energy)
+
+attach(thuesen)
+blood.glucose
+detach()
+#thuesen2<-edit(thuesen)
+```
+
+## Funções que facilitam a manipulação de dados
+
+```{r}
+thue2 <- subset(thuesen,blood.glucose<7)
+thue2
+
+thue3 <- transform(thuesen,log.gluc=log(blood.glucose))
+thue3
+```
+
+o R é uma linguagem que permite criar novas funções. Na verdade, muitas das funções em R são atualmente funções de funções. A estrutura de uma função é dada abaixo:
+
+myfunction<-function(arg1, arg2,...){
+  statements ou afirmações
+  return(object)
+}
+
+```{r}
+thue4 <- within(thuesen,{
+  log.gluc <- log(blood.glucose)
+  m <- mean(log.gluc)
+  centered.log.gluc <- log.gluc - m 
+  rm(m)
+})
+thue4
+```
+
+R é uma verdadeira linguagem de programação que permite a execução condicional e também construções de loop. Por exemplo:
+
+```{r}
+y <- 12345
+x <- y/2
+while (abs(x*x-y) > 1e-10) x <- (x + y/x)/2
+x
+x^2
+```
+
+Observe a construção da expressão while (condição), que diz que a expressão deve ser avaliada enquanto a condição for TRUE.
+
+O teste ocorre na parte superior do loop
+
+Uma variação do mesmo algoritmo com o teste na parte inferior do loop pode ser escrita com uma construção repetida:
+
+```{r}
+y<-12345
+x <- y/2
+repeat{
+  x <- (x + y/x)/2
+  if (abs(x*x-y) < 1e-10) break
+}
+x
+x^2
+```
+
+## O subsistema gráfico - Funções Par ( ) e Layout ( )
+
+```{r}
+x <- runif(50,0,2)
+y <- runif(50,0,2)
+
+plot(x, y, main="Título Principal", sub="Subtítulo", xlab="Rótulo do Eixo-X", 
+     ylab="Rótulo do Eixo-Y")
+text(0.6,0.6,"text at (0.6,0.6)")
+abline(h=.6,v=.6) #Função utilizada para adicionar linhar vertical, horizontal e de regressão linear em gráficos.
+```
+
+## Função par ( )
+
+Com a função par(), você pode incluir as opções mfrow=c(nrows, ncols) para criar uma matriz de gráficos de nrows x ncols que são ajustados pela linha. mfcol=c(nrows, ncols) ajusta os gráficos na matriz por coluna.
+
+## Exemplo: 4 figuras organizadas em 2 linhas e 2 colunas
+
+```{r}
+attach(mtcars)
+par(mfrow=c(2,2))
+plot(wt,mpg, main="Scatterplot of wt vs. mpg") 
+plot(wt,disp, main="Scatterplot of wt vs disp") 
+hist(wt, main="Histogram of wt")
+boxplot(wt, main="Boxplot of wt")
+```
+
+## Exemplo: 3 figuras organizadas em 3 linhas e 1 colunas
+
+```{r}
+attach(mtcars) 
+par(mfrow=c(3,1)) 
+hist(wt)
+hist(mpg)
+hist(disp)
+```
+
+## Função layout ( )
+
+A função layout() tem a forma layout(mat) onde mat é um objeto da matriz que especifica o local das N figuras para plotagem.
+
+## Exemplo: Uma figura na linha 1 e duas figuras na linha 2
+
+layout(matrix(c(1,2,3,4), nrow = 2, ncol = 2, byrow = TRUE)) 
+
+```{r}
+attach(mtcars)
+layout(matrix(c(1,1,2,3), nrow = 2, ncol = 2, byrow = TRUE)) 
+hist(wt)
+hist(mpg)
+hist(disp)
+```
+
+## Gráfico em 3D
+
+```{r}
+library(rgl)
+
+open3d()
+x <- sort(rnorm(1000))
+y <- rnorm(1000)
+z <- rnorm(1000) + atan2(x,y)
+plot3d(x, y, z, col = rainbow(1000))
+rgl.postscript("plot3d.pdf", "pdf")
+```
+
+## Progressão Aritmética (PA) e Progressão Geométrica (PG)
+
+Criando uma função para calcular a soma de uma PA
+
+```{r}
+nesimotermo<-function(a1, n, r){
+  a1+(n-1)*r
+}
+
+nesimotermo(1,5,3)
+```
+
+
+```{r}
+somapa<-function(a1, r, n){
+  an=a1+(n-1)*r
+  ((a1+an)*n)/2
+}
+
+somapa(1,3,5)
+
+somapa(2,2,5)
+```
+
+## Progressão Geométrica (PG)
+
+### PG finita
+
+```{r}
+somapg<-function(a1, q, n){
+  (a1*(q^n -1))/(q-1)
+}
+
+somapg(1,10,5)
+```
+
+### PG infinita
+
+```{r}
+sompginf<-function(a1, q){
+  a1/(1-q)
+}
+
+sompginf(1, 0.5)
+```
+
+## Transformar a temperatura em grau Fahrenheit para grau Celsius.
+
+Lembre-se que em grau Fahrenheit a escala de temperatura varia de 32ºF (0ºC) até 212ºF (100ºC)
+
+```{r}
+fahrenheit_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+
+fahrenheit_to_celsius(55)
+fahrenheit_to_celsius(212)
+```
+
+## Entrada de Dados no R. 
+
+Observação: No Windows o endereço do arquivo a $\$  deve ser substituida por $/$
+
+## Arquivo no formato .txt (Bloco de Notas)
+
+```{r}
+`401k` <- read.delim("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/401k.txt")
+```
+
+## Arquivo no formato .csv (Separador de Vírgula)
+```{r}
+nerlove <- read.csv2("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/nerlove.csv")
+```
+
+## Arquivo no formato .xlsx (Excel)
+
+```{r}
+library(xlsx)
+```
+
+```{r}
+rental1 <- read.xlsx("~/OneDrive - Universidade Federal do Ceará/Sobral 2020.1/Métodos Computacionais Avançado/Material_MCA_2020.1/Bases de Dados/rental1.xlsx", 1)
+```
+
+## Arquivo no formato .dta (Stata)
+
+```{r}
+library(haven)
+```
+
+```{r}
+# mydata <- read.dta("c:/mydata.dta")
+
+campus <- read_dta("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/campus.dta")
+```
+
+## Inserindo dados com o Data Entry
+
+```{r, echo=FALSE}
+myData <- data.frame()
+myData <- edit(myData)
+```
+
+## Manipulação de Bases de Dados
+
+```{r}
+library(readxl)
+```
+
+```{r}
+rental1 <- read_excel("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/rental1.xlsx")
+
+rental2 <- read_excel("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/rental2.xlsx")
+
+rental3 <- read_excel("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/rental3.xlsx")
+
+rental4 <- read_excel("~/OneDrive - Universidade Federal do Ceará/Sobral 2021.1/Métodos Computacionais Aplicados/Base de Dados_MCA_2021.1/rental4.xlsx")
+
+```
+
+## A Função Merge
+
+```{r}
+# mydata<-merge(mydata1, mydata2, by=c("id_1","id_2"))
+
+rental12<-merge(rental1, rental2, by=c("city","year"))
+summary(rental12)
+```
+
+## A Função Append
+
+```{r}
+rental34<-rbind(rental3, rental4)
+
+summary(rental34)
+```
+

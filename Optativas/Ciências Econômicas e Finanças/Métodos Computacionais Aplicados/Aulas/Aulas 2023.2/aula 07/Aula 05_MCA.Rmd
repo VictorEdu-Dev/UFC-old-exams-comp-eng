@@ -1,0 +1,508 @@
+---
+title: "Universidade Federal do Ceará (UFC/Sobral)"
+subtitle: "Aula 05 - Métodos Computacionais Aplicados"
+author: "Prof. Weligton Gomes"
+date: "25/09/2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Você pode “colar” vetores ou juntar coluna ou linha, usando as funções cbind (coluna) e rbind (linha).
+
+```{r}
+cbind(A=1:4,B=5:8,C=9:12)
+rbind(A=1:4,B=5:8,C=9:12)
+```
+
+
+```{r, echo=TRUE}
+library(ISwR)
+data(energy)
+```
+
+# Fator
+
+É comum em dados estatísticos ter variáveis categóricas, indicando alguma subdivisão dos dados, como classe social, etc. Essas são inseridas por meio de um código numérico. Essas variáveis devem ser especificadas como fatores em R.
+
+```{r}
+pain <- c(0,3,2,2,1)
+fpain <- factor(pain,levels=0:3)
+levels(fpain) <- c("none","mild","medium","severe")
+
+fpain
+as.numeric(fpain)
+levels(fpain)
+```
+
+# Listas
+
+Às vezes, é útil combinar uma coleção de objetos em um objeto composto maior. Isso pode ser feito usando listas.
+
+# function list
+intake = ingestão
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.post <- c(3910,4220,3885,5160,5645,4680,5265,5975,6790,6900,7335)
+length(intake.pre)
+length(intake.post)
+```
+
+Para combinar esses vetores individuais em uma lista, você pode dizer
+
+```{r}
+mylist <- list(before=intake.pre,after=intake.post)
+mylist
+
+mylist$after
+```
+
+# Dataframe
+
+Um quadro de dados corresponde ao que outros pacotes estatísticos chamam de “matriz de dados” ou “conjunto de dados”. 
+
+É uma lista de vetores e / ou fatores do mesmo comprimento que estão relacionados “transversalmente” de forma que os dados na mesma posição venham da mesma unidade experimental (sujeito, animal, etc.). Além disso, ele possui um conjunto exclusivo de nomes de linhas.
+
+```{r}
+d <- data.frame(intake.pre,intake.post)
+d$intake.pre
+```
+
+# Indexação:  Caso de um ou mais índices
+
+Se você precisa de um elemento específico em um vetor, por exemplo, o indivíduo de número 5, você pode fazer:
+
+```{r}
+intake.pre[5] #Caso de um elemento
+intake.pre[5]<-6395
+intake.pre[c(3,5,7)] #Caso de mais de um elemento do vetor
+```
+
+ou de outra forma;
+
+```{r}
+v <- c(3,5,7)
+intake.pre[v]
+
+intake.pre[1:5] #No caso de uma sequência de elementos
+intake.pre[-c(3,5,7)] 
+#Apresenta todas as informações, exceto aquelas 
+#com a indexação ou número 3, 5 e 7.
+
+intake.pre1<-intake.pre[-c(3,5,7)] 
+#Criação de um vetor excluindo alguns elementos do vetor original.
+```
+
+# Seleção condicional
+
+Na prática, você geralmente precisa extrair dados que satisfaçam certos critérios. Isso pode ser feito simplesmente inserindo uma expressão relacional em vez do índice.
+
+```{r}
+intake.post[intake.pre > 7000]
+intake.post[intake.pre > 7000 & intake.pre <= 8000]
+```
+
+# Indexação de Dataframe
+
+```{r}
+d <- data.frame(intake.pre,intake.post)
+d[5,1]
+d[5,]
+d[d$intake.pre>7000,]
+d[1:2,]
+head(d)
+tail(d)
+```
+
+```{r}
+data(energy)
+energy$expend
+energy$stature
+```
+
+# Ordenando um vetor com a função sort()
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.pre_ord <- sort(c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770))
+```
+
+# Dados agrupados e Dataframe
+
+Separação de vetores por cada grupo (lean (magro) e obese(obeso), gasto (expend) e altura (stature))
+
+```{r}
+exp.lean <- energy$expend[energy$stature=="lean"]
+length(exp.lean)
+exp.obese <- energy$expend[energy$stature=="obese"]
+length(exp.obese)
+```
+
+# Alternativamente, utiliza-se a função split() que gera uma lista de vetores de acordo com o agrupamento.
+
+```{r}
+l <- split(energy$expend, energy$stature)
+l
+```
+
+Uma aplicação comum de loops é aplicar uma função a cada elemento de um conjunto de valores ou vetores e coletar os resultados em uma única estrutura;
+
+# Função sapply, lapply e tapply
+
+Função sapply - tenta simplificar (daí o 's'): A função sapply aplica funções a cada elemento de um vetor, pode ser aplicada em vetores unidimensionais, data.frames (agrupamentos de vetores) e listas (também considerados vetores). Por padrão a função simplifica os resultados se possível, então pode retornar tanto único vetor, uma matriz ou listas.
+
+Função lapply - sempre retorna uma lista (daí o 'l'): A função lapply funciona praticamente igual à sapply e permite a aplicação de uma função em cada elemento de um vetor unidimensional, data.frame ou lista.
+
+Função tapply permite que você crie tabelas (daí o ‘t’): A função tapply divide as estruturas de dados e aplica funções a cada subconjunto, geralmente as funções passada calculam estatísticas descritivas. O argumento INDEX especifica um ou mais fatores para dividir os elementos da estrutura. O funcionamento dessa função é similar as funções aggregate e by.
+
+ou de outra forma:
+
+Função tapply permite que você crie tabelas do valor de uma função em subgrupos definidos por seu segundo argumento, que pode ser um fator ou uma lista de fatores.
+
+```{r}
+library(ISwR)
+data(thuesen)
+
+mean(thuesen$blood.glucose)
+mean(thuesen$short.velocity, na.rm = TRUE)
+sapply(thuesen, mean, na.rm=T)
+```
+```{r}
+
+lapply(thuesen, sd, na.rm=TRUE)
+```
+```{r}
+tapply(energy$expend, energy$stature, mean)
+```
+
+# Utilize a função sort( ) para ordenar valores em um vetor (intake = ingestão)
+
+```{r}
+intake.pre <- c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770)
+intake.pre_sort <- sort(c(5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770))
+```
+
+
+```{r}
+library(ISwR)
+
+data(energy)
+data(thuesen)
+```
+
+## Attach () e detach()
+
+Quando necesssitamos fazer muitas referências para um objeto, podemos minimizar a digitação, colocando o data.frame ou lista no caminho de procura, através do comando attach().
+
+Antes de começar outra análise com outros dados, não esqueça de usar a função detach() para retirar o objeto do caminho de procura.
+
+Por exemplo:
+
+```{r}
+energy$stature
+
+attach(energy)
+expend
+detach(energy)
+
+#energy2<-edit(energy)
+
+attach(thuesen)
+blood.glucose
+detach()
+#thuesen2<-edit(thuesen)
+```
+
+## Funções que facilitam a manipulação de dados
+
+```{r}
+thue2 <- subset(thuesen,blood.glucose<7)
+thue2
+
+thue3 <- transform(thuesen,log.gluc=log(blood.glucose))
+thue3
+```
+
+
+R é uma verdadeira linguagem de programação que permite a execução condicional e também construções de loop. 
+
+## Operadores de Comparação
+equal: ==
+not equal: !=
+greater/less than: > / <
+greater/less than or equal: ≥ / ≤
+
+## Operadores Lógicos
+and: &. Exemplo: x & y. Lê-se x e y. 
+or: |. Exemplo: x | y. Lê-se x ou y. 
+not: !. Exemplo: !x. Lê-se não x.
+
+Por exemplo:
+
+## Usando o If (se):
+
+Sintaxe: if (cond1=true) { cmd1 } else { cmd2 }
+
+```{r}
+if (1 == 0){ 
+  print (1)} else {
+  print (2)
+}
+```
+
+## Usando o Ifelse (Caso Contrário):
+
+Sintaxe: ifelse(test, true value, false value)
+
+```{r}
+x <- 1:10  # Creates sample data 
+ifelse(x<5|x>8, x, 0)
+```
+
+## Usando o while (enquanto):
+
+Sintaxe: while(condition) statements
+
+```{r}
+y <- 12345
+x <- y/2
+while (abs(x*x-y) > 1e-10) x <- (x + y/x)/2
+x
+x^2
+```
+
+Observe a construção da expressão while (condição), que diz que a expressão deve ser avaliada enquanto a condição for TRUE.
+
+O teste ocorre na parte superior do loop
+
+
+o R é uma linguagem que permite criar novas funções. Na verdade, muitas das funções em R são atualmente funções de funções. A estrutura de uma função é dada abaixo:
+
+myfunction<-function(arg1, arg2,...){
+  statements ou afirmações
+  return(object)
+}
+
+
+```{r}
+thue4 <- within(thuesen,{
+  log.gluc <- log(blood.glucose)
+  m <- mean(log.gluc)
+  centered.log.gluc <- log.gluc - m 
+  rm(m)
+})
+thue4
+```
+
+
+## O subsistema gráfico - Funções Par ( ) e Layout ( )
+
+```{r}
+x <- runif(50,0,2)
+y <- runif(50,0,2)
+
+plot(x, y, main="Título Principal", sub="Subtítulo", xlab="Rótulo do Eixo-X", 
+     ylab="Rótulo do Eixo-Y")
+
+text(0.6,0.6,"text at (0.6,0.6)")
+
+abline(h=.6,v=.6) #Função utilizada para adicionar linhar vertical, horizontal
+# e de regressão linear em gráficos.
+```
+
+## Função par ( )
+
+Com a função par(), você pode incluir as opções mfrow=c(nrows, ncols) para criar uma matriz de gráficos de nrows x ncols que são ajustados pela linha. mfcol=c(nrows, ncols) ajusta os gráficos na matriz por coluna.
+
+## Exemplo: 4 figuras organizadas em 2 linhas e 2 colunas
+
+```{r}
+attach(mtcars)
+par(mfrow=c(2,2))
+plot(wt,mpg, main="Scatterplot of wt vs. mpg") 
+plot(wt,disp, main="Scatterplot of wt vs disp") 
+hist(wt, main="Histogram of wt")
+boxplot(wt, main="Boxplot of wt")
+```
+
+## Exemplo: 3 figuras organizadas em 3 linhas e 1 colunas
+
+```{r}
+attach(mtcars) 
+par(mfrow=c(3,1)) 
+hist(wt)
+hist(mpg)
+hist(disp)
+```
+
+## Função layout ( )
+
+A função layout() tem a forma layout(mat) onde mat é um objeto da matriz que especifica o local das N figuras para plotagem.
+
+## Exemplo: Uma figura na linha 1 e duas figuras na linha 2
+
+layout(matrix(c(1,2,3,4), nrow = 2, ncol = 2, byrow = TRUE)) 
+
+```{r}
+attach(mtcars)
+layout(matrix(c(1,1,2,3), nrow = 2, ncol = 2, byrow = TRUE)) 
+hist(wt)
+hist(mpg)
+hist(disp)
+```
+
+## Gráfico em 3D
+
+```{r}
+library(rgl)
+
+open3d()
+x <- sort(rnorm(1000))
+y <- rnorm(1000)
+z <- rnorm(1000) + atan2(x,y)
+plot3d(x, y, z, col = rainbow(1000))
+rgl.postscript("plot3d.pdf", "pdf")
+```
+
+## Progressão Aritmética (PA) e Progressão Geométrica (PG)
+
+Criando uma função para calcular a soma de uma PA
+
+```{r}
+nesimotermo<-function(a1, n, r){
+  a1+(n-1)*r
+}
+
+nesimotermo(1,5,3)
+```
+
+
+```{r}
+somapa<-function(a1, r, n){
+  an=a1+(n-1)*r
+  ((a1+an)*n)/2
+}
+
+somapa(1,3,5)
+
+somapa(2,2,5)
+```
+
+## Progressão Geométrica (PG)
+
+### PG finita
+
+```{r}
+somapg<-function(a1, q, n){
+  (a1*(q^n -1))/(q-1)
+}
+
+somapg(1,10,5)
+```
+
+### PG infinita
+
+```{r}
+sompginf<-function(a1, q){
+  a1/(1-q)
+}
+
+sompginf(1, 0.5)
+```
+
+## Transformar a temperatura em grau Fahrenheit para grau Celsius.
+
+Lembre-se que em grau Fahrenheit a escala de temperatura varia de $32^{\circ}F$ ($0^{\circ}C$) até $212^{\circ}F$ ($100^{\circ}C$).
+
+```{r}
+fahrenheit_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+
+fahrenheit_to_celsius(55)
+fahrenheit_to_celsius(212)
+```
+
+## Entrada de Dados no R. 
+
+Observação: No Windows o endereço do arquivo a $\backslash$  deve ser substituida por $/$.
+
+## Arquivo no formato .txt (Bloco de Notas)
+
+
+```{r}
+x401k <- read.delim("~/Base de Dados_MCA/401k.txt")
+```
+
+## Arquivo no formato .csv (Separador de Vírgula)
+```{r}
+nerlove <- read.csv2("~/Base de Dados_MCA/nerlove.csv")
+```
+
+## Arquivo no formato .xlsx (Excel)
+
+```{r}
+library(xlsx)
+```
+
+```{r}
+rental1 <- read.xlsx("~/Base de Dados_MCA/rental1.xlsx", 1)
+```
+
+## Arquivo no formato .dta (Stata)
+
+```{r}
+library(haven)
+```
+
+```{r}
+# mydata <- read.dta("c:/mydata.dta")
+
+campus <- read_dta("~/Base de Dados_MCA/campus.dta")
+```
+
+## Inserindo dados com o Data Entry
+
+```{r, echo=FALSE}
+myData <- data.frame()
+myData <- edit(myData)
+```
+
+## Manipulação de Bases de Dados
+
+```{r}
+library(readxl)
+```
+
+```{r}
+rental1 <- read_excel("~/Base de Dados_MCA/rental1.xlsx")
+
+rental2 <- read_excel("~/Base de Dados_MCA/rental2.xlsx")
+
+rental3 <- read_excel("~/Base de Dados_MCA/rental3.xlsx")
+
+rental4 <- read_excel("~/Base de Dados_MCA/rental4.xlsx")
+
+```
+
+## A Função Merge
+
+```{r}
+# mydata<-merge(mydata1, mydata2, by=c("id_1","id_2"))
+
+rental12<-merge(rental1, rental2, by=c("city","year"))
+summary(rental12)
+```
+
+## A Função Append
+
+```{r}
+rental34<-rbind(rental3, rental4)
+
+summary(rental34)
+```
+

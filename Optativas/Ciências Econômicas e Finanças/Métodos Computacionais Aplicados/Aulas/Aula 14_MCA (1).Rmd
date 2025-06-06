@@ -1,0 +1,256 @@
+---
+title: "Aula 14 - Regressão e Correlação no R"
+author: "Prof. Weligton Gomes"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Regressão Linear Simples:
+
+Análise de regressão é uma técnica estatística utilizada para investigar a relação existente entre variáveis através da construção de uma equação (um modelo). De maneira geral, essa técnica pode ser utilizada com vários objetivos, dentre os quais se pode destacar: descrever a relação entre variáveis para entender um processo ou fenômeno; prever o valor de uma variável a partir do conhecimento dos valores das outras variáveis; substituir a medição de uma variável pela observação dos valores de outras variáveis; controlar os valores de uma variável em uma faixa de interesse.
+
+## Estudo Empírico do pacote ISwR
+Pergunta: Existe uma relação entre a glicemia de jejum e a velocidade de encurtamento ventricular em pacientes diabéticos tipo 1? Em caso afirmativo, qual é a natureza da associação?
+
+De outra forma, você pode estar interessado em descrever a velocidade de encurtamento circunferencial média ($\%$/s) (short.velocity), ou seja, a velocidade na qual um músculo muda de comprimento durante uma contração, como uma função da glicose no sangue em jejum ($mmol/l$) (blood.glucose). 
+
+Vejamos as estatísticas descritivas das variáveis.
+
+```{r}
+library(ISwR)
+attach(thuesen)
+summary(thuesen)
+```
+
+```{r, echo=FALSE}
+plot(blood.glucose,short.velocity)
+```
+
+# Descrição da Função lm (linear model)
+
+Para análise de regressão linear, utiliza-se a função lm (modelo linear). O argumento principal desta função é a fórmula na qual a variável dependente é seguida pelo símbolo do til e o somatório das variáveis explicativas.
+
+
+```{r}
+attach(thuesen)
+lm(short.velocity~blood.glucose)
+```
+
+```{r}
+lm.velo<-lm(short.velocity~blood.glucose)
+summary(lm.velo)
+```
+
+# Resíduos e Valores Ajustados
+
+Após a estimação, obtém-se os valores ajustados e os resíduos a partir das funções fitted e resid.
+
+Ao conduzir uma análise residual, um "gráfico de resíduos versus ajustes" é o gráfico criado com mais frequência. É um gráfico de dispersão de resíduos no eixo y e valores ajustados (respostas estimadas) no eixo x. O gráfico é usado para detectar não linearidade, variâncias de erro desiguais e outliers.
+
+# Valores Ajustados (Valor previsto de y):
+
+```{r}
+fitted(lm.velo)
+```
+
+# Resíduos
+
+```{r}
+resid(lm.velo)
+```
+
+# Plotando os gráficos da regressão.
+
+
+```{r}
+plot(lm.velo)
+```
+
+Observações:
+
+1) O primeiro gráfico (resíduos vs. valores ajustados) é um gráfico de dispersão simples entre resíduos e valores previstos. Deve parecer mais ou menos aleatório.
+
+2) O segundo gráfico (Q-Q normal) é um gráfico de probabilidade normal. Ele dará uma linha reta se os erros forem distribuídos normalmente, mas os pontos 13, 20 e 24 desviam da linha reta.
+
+3) O terceiro gráfico (Escala-Localização), como o primeiro, deve parecer aleatório. Sem padrões. O nosso temos um estranho padrão em forma de V. Também é chamado de gráfico Spread-Location. Este gráfico mostra se os resíduos são distribuídos igualmente ao longo dos intervalos de preditores. É assim que você pode verificar a suposição de variância igual (homocedasticidade). É bom se você vir uma linha horizontal com pontos de propagação igualmente (aleatoriamente).
+
+4) O último gráfico (distância de Cook) nos diz quais pontos têm a maior influência na regressão (pontos de alavancagem). Vemos que os pontos 1, 13 e 20 têm grande influência no modelo.
+
+Este gráfico pode ser usado para encontrar casos influentes no conjunto de dados. Um caso influente é aquele que, se removido, afetará o modelo, portanto, sua inclusão ou exclusão deve ser considerada.
+
+Um caso influente pode ou não ser um outlier e o objetivo deste gráfico é identificar os casos que têm alta influência no modelo. Os valores discrepantes tendem a exercer influência e, portanto, influenciar o modelo.
+
+Quando os pontos estão fora da distância do Cook, isso significa que eles têm altas pontuações de distância do Cook. Nesse caso, os valores influenciam os resultados da regressão. Os resultados da regressão serão alterados se excluirmos esses casos.
+
+# Correlação
+
+Um coeficiente de correlação é uma medida simétrica e invariante de escala de associação entre duas variáveis aleatórias. Ele varia de $-1$ a $+1$, onde os extremos indicam correlação perfeita e 0 significa nenhuma correlação. O sinal é negativo quando grandes valores de uma variável estão associados a pequenos valores da outra e positivo se ambas as variáveis tendem a ser grandes ou pequenas simultaneamente.
+
+Todas as funções estatísticas elementares em R requerem que todos os valores sejam não omissos ou que você declare explicitamente o que deve ser feito com os casos com valores omissos. Para médias, var, sd e funções similares de um vetor, você pode fornecer o argumento $na.rm = T$ para indicar que os valores ausentes devem ser removidos antes do cálculo.
+
+```{r}
+attach(thuesen)
+cor(blood.glucose,short.velocity)
+```
+
+```{r}
+cor(blood.glucose,short.velocity,use="complete.obs")
+```
+
+```{r}
+cor(thuesen,use="complete.obs")
+```
+
+No entanto, os cálculos acima não fornecem nenhuma indicação se a correlação é significativamente diferente de zero. 
+
+Para isso, você precisa de cor.test. Funciona simplesmente especificando as duas variáveis:
+
+```{r}
+cor.test(blood.glucose,short.velocity)
+```
+
+# Correlação de Spearman's $\rho$
+
+a correlação de Spearman descreve a relação entre as variáveis através de uma função monotética, ou seja, uma classificação que utiliza apenas um critério diferenciador, por exemplo, as caracetristicas partilhadas por uma população de uma mesma cultura.
+
+Isso significa, de maneira simplificada, que ele está analisando se, quando o valor de uma variável aumenta ou diminui, o valor da outra variável aumenta ou diminui.
+
+Muitas vezes podemos estar interessado em variantes não paramétricas. Estas têm a vantagem de não depender da distribuição normal e, de fato, serem invariantes às transformações monótonas das coordenadas. 
+
+A principal desvantagem é que sua interpretação não é muito clara. Uma escolha popular e simples é o coeficiente de correlação de posto de Spearman $\rho$. Isso é obtido simplesmente substituindo as observações por sua classificação e computando a correlação. Sob a hipótese nula de independência entre as duas variáveis, a distribuição exata de $\rho$ pode ser calculada.
+
+```{r}
+cor.test(blood.glucose,short.velocity,method="spearman")
+```
+
+# Correlação de Kendall's $\tau$
+
+O teste $\tau$ de Kendall se baseia na contagem do número de pares concordantes e discordantes. Um par de pontos é concordante se a diferença na coordenada x for do mesmo sinal que a diferença na coordenada y. Para uma relação monótona perfeita, ou todos os pares serão concordantes ou todos os pares serão discordantes. 
+
+Sob a independência, deve haver tantos pares concordantes quanto discordantes.
+
+```{r}
+cor.test(blood.glucose,short.velocity,method="kendall")
+```
+
+```{r}
+detach(thuesen)
+library(wooldridge)
+```
+
+# Base de Dados do Wooldridge
+
+1 - O data.frame contém 156 observações de 21 variáveis. 
+2 - O dataset está no pacote wooldridge acessado fazendo 
+
+```{r}
+data("lawsch85")
+View(lawsch85)
+```
+
+## Variável Dependente:
+
+1) salary: median starting salary
+
+## Características dos Entrantes
+
+2) LSAT: median LSAT (Law School Admission Test) score
+3) GPA: median college GPA (Grade Point Average)
+
+## Características da Escola
+
+4) rank: law school ranking
+5) cost: law school cost
+6) libvol: no. volumes in lib., 1000s
+
+## Variáveis Derivadas
+
+7) lsalary: log(salary)
+8) top10: $=1$ if ranked in top 10
+9) r11_25: $=1$ if ranked 11-25
+10) r26_40: $=1$ if ranked 26-40
+11) r41_60: $=1$ if ranked 41-60
+12) llibvol: log(libvol)
+13) lcost: log(cost)
+
+```{r}
+attach(lawsch85)
+
+#Criando variável Dummy para o rank entre 61-100
+r61.100 <- as.numeric(lawsch85$rank >= 61 & lawsch85$rank <= 100)
+lawsch85<-as.data.frame(cbind(lawsch85,r61.100))
+
+
+mod1 <- lm(log(salary) ~ log(rank) + log(LSAT) + log(GPA) + log(libvol) + log(cost), 
+    data = lawsch85)
+summary(mod1)
+mod2 <- lm((salary) ~ (rank) + (LSAT) + (GPA) + (libvol) + (cost), data = lawsch85)
+mod3 <- lm(log(salary) ~ top10 + r11_25 + r26_40 + r41_60 + r61.100 + log(LSAT) + 
+    log(GPA) + log(libvol) + log(cost), data = lawsch85)
+
+#AIC - Teste de Akaike e BIC - Teste de Schwarz
+mod1$AIC <- AIC(mod1)
+mod2$AIC <- AIC(mod2)
+mod3$AIC <- AIC(mod3)
+mod1$BIC <- BIC(mod1)
+mod2$BIC <- BIC(mod2)
+mod3$BIC <- BIC(mod3)
+
+library(stargazer)
+star.1 <- stargazer(mod1, mod2, mod3, title = "Título: Resultados das Regressões", 
+    column.labels = c("MQO-mod1", "MQO-mod2", "MQO-mod3"), align = TRUE, type = "text", 
+    keep.stat = c("aic", "bic", "rsq", "adj.rsq", "n"))
+```
+
+## Teste de Multicolinearidade (vif)
+
+```{r}
+library(car)
+reg1.vif <- vif(mod1)
+reg1.vif
+
+reg2.vif <- vif(mod2)
+reg2.vif
+
+reg3.vif <- vif(mod3)
+reg3.vif
+```
+
+## Heterocedasticidade no modelo 3
+### Teste de White
+
+```{r}
+lmtest::bptest(mod3, ~log(LSAT) + log(GPA) + log(libvol) + log(cost) + I(log(LSAT)^2) + 
+    I(log(GPA)^2) + I(log(libvol)^2) + I(log(cost)^2), data = lawsch85)
+```
+
+Podemos concluir que há a presença de heterocedasticidade dos resíduos em mod3.
+
+## Autocorrelação dos resíduos
+
+```{r}
+library(car)
+library(lmtest)
+library(sandwich)
+
+dw.mod3 <- dwtest(mod3)
+dw.mod3
+```
+
+## Teste de Jarque-Bera para normalidade
+
+```{r}
+u.hat <- resid(mod3)
+library(tseries)
+JB.mod3 <- jarque.bera.test(u.hat)
+JB.mod3
+```
+
+Rejeita-se H0 e conclui-se por resíduos não normais. 
