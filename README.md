@@ -86,7 +86,7 @@
 <details>
   <summary><strong>9º Semestre</strong></summary>
   
-  - _Disciplinas não listadas automaticamente. Preencha manualmente ou veja o [repositório](https://github.com/VictorEdu-Dev/UFC-old-exams-comp-eng/tree/main/09%C2%B0%20Per%C3%ADodo)_
+  - Não existente ainda.
 </details>
 
 <details>
