@@ -1,7 +1,5 @@
 # 🏛️ Provas Antigas - UFC - Engenharia de Computação
 
-> **Acesse o [repositório completo](https://github.com/VictorEdu-Dev/UFC-old-exams-comp-eng/tree/main).**
-
 ---
 
 ## 📚 Grade curricular por semestre
