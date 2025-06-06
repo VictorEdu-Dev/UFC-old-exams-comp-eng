@@ -25,7 +25,7 @@
   - [Física Experimental 1](https://github.com/VictorEdu-Dev/UFC-old-exams-comp-eng/tree/main/02%C2%B0%20Per%C3%ADodo/F%C3%ADsica%20Experimental%201)
   - [Probabilidade](https://github.com/VictorEdu-Dev/UFC-old-exams-comp-eng/tree/main/02%C2%B0%20Per%C3%ADodo/Probabilidade)
   - [Álgebra linear](https://github.com/VictorEdu-Dev/UFC-old-exams-comp-eng/tree/main/02%C2%B0%20Per%C3%ADodo/%C3%81lgebra%20linear)
-  - [Técnicas de Programação]()
+  - [Técnicas de Programação](https://github.com/VictorEdu-Dev/UFC-old-exams-comp-eng/tree/main/02%C2%B0%20Per%C3%ADodo/T%C3%A9cnicas%20de%20Programa%C3%A7%C3%A3o)
     <details>
       <summary><strong>Playlist do Fischer</strong></summary>
       
